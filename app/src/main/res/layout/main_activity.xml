@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+<!--    上下左右に肉球マーク　-->
+
+    <TextView
+        android:id="@+id/height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="height"/>
+
+    <TextView
+        android:id="@+id/width"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="width"/>
+
+    <EditText
+        android:id="@+id/height_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp"
+        android:hint="Height"
+        android:background="@android:drawable/edit_text"
+        android:inputType="number"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/width_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp"
+        android:hint="Width"
+        android:background="@android:drawable/edit_text"
+        android:inputType="number"
+        android:importantForAutofill="no" />
+
+    <ToggleButton
+        android:id="@+id/toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
+    <CheckBox
+        android:id="@+id/transparent_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="背景を透過する"/>
+
+</LinearLayout>
