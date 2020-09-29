@@ -21,4 +21,8 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="TextLabel" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
 </resources>

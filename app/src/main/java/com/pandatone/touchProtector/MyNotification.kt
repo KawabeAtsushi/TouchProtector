@@ -8,11 +8,8 @@ import android.content.Context
 import android.content.Intent
 
 object MyNotification {
-    private const val CHANNEL_ID = "channel_id_overlay_sample"
-    private const val CHANNEL_NAME = "オーバーレイ表示の切り替え"
+    private const val CHANNEL_ID = "channel_id_touch_protector"
     private const val CHANNEL_IMPORTANCE = NotificationManager.IMPORTANCE_DEFAULT
-    private const val FIRST_LINE = "オーバーレイ表示中"
-    private const val SECOND_LINE = "ここから表示・非表示を切り替えられます。"
     private val ACTIVITY = MainActivity::class.java
 
     /**
@@ -22,7 +19,7 @@ object MyNotification {
         // Create a notification channel
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.createNotificationChannel(
-            NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMPORTANCE)
+            NotificationChannel(CHANNEL_ID, context.getString(R.string.channel_name), CHANNEL_IMPORTANCE)
         )
 
         // The PendingIntent to launch our activity if the user selects this notification
@@ -33,8 +30,8 @@ object MyNotification {
         return Notification.Builder(context, CHANNEL_ID)
             .setAutoCancel(false)  // don't dismiss when touched
             .setContentIntent(pendingIntent)  // The intent to send when the entry is clicked
-            .setContentTitle(FIRST_LINE)  // the label of the entry
-            .setContentText(SECOND_LINE)  // the contents of the entry
+            .setContentTitle(context.getString(R.string.first_line))  // the label of the entry
+            .setContentText(context.getString(R.string.second_line))  // the contents of the entry
             .setSmallIcon(R.drawable.icon)  // the status icon
             .setTicker(context.getText(R.string.app_name))  // the status text
             .setWhen(System.currentTimeMillis())  // the time stamp

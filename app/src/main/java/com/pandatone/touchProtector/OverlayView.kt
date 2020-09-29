@@ -20,13 +20,16 @@ class OverlayView @JvmOverloads constructor(
             View.inflate(context, R.layout.overlay_view, null) as OverlayView
     }
 
+    private var height = MainActivity.viewModel.topHeight.value
+    private var width = MainActivity.viewModel.topWidth.value
+
     private val windowManager: WindowManager =
         ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
     /** Settings for overlay view */
     private val layoutParams = WindowManager.LayoutParams(
-        WindowManager.LayoutParams.MATCH_PARENT,
-        WindowManager.LayoutParams.MATCH_PARENT,
+        WindowManager.LayoutParams.WRAP_CONTENT,
+        WindowManager.LayoutParams.WRAP_CONTENT,
         WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,  // Overlay レイヤに表示
         WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -39,11 +42,11 @@ class OverlayView @JvmOverloads constructor(
     fun show() {
         if (!this.isShown) {
             layoutParams.gravity = Gravity.TOP
-            if (MainActivity.areaH != 0) {
-                layoutParams.height = MainActivity.areaH
+            if (height != 0) {
+                layoutParams.height = height ?: 0
             }
-            if (MainActivity.areaW != 0) {
-                layoutParams.width = MainActivity.areaW
+            if (width != 0) {
+                layoutParams.width = width ?: 0
             }
             windowManager.addView(this, layoutParams)
 
@@ -59,11 +62,11 @@ class OverlayView @JvmOverloads constructor(
     }
 
     fun through() {
-        if (MainActivity.areaH != 0) {
-            layoutParams.height = MainActivity.areaH
+        if (height != 0) {
+            layoutParams.height = height?:0
         }
         if (!OverlayService.THROUGH) {
-            layoutParams.width = MainActivity.areaW
+            layoutParams.width = width?:0
         } else {
             layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
         }
