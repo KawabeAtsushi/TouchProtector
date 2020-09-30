@@ -1,9 +1,18 @@
 package com.pandatone.touchProtector
 
+import android.app.Activity
+import android.content.Context
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class MainViewModel {
+class MainViewModel : ViewModel()  {
+
+    val top = "top"
+    val bottom = "bottom"
+    val left = "left"
+    val right = "right"
 
     //TOP
     private val _topHeight = MutableLiveData<Int>().also { mutableLiveData ->
@@ -75,6 +84,17 @@ class MainViewModel {
     fun setLeftParam(height: Int = -1, width: Int = -1) {
         if (height > 0) _leftHeight.value = height
         if (width > 0) _leftWidth.value = width
+    }
+
+    //onClick
+    fun onClickButton(activity:Activity, position:String){
+        val title = activity.findViewById<TextView>(R.id.title)
+        when (position) {
+            top -> title.text = top
+            bottom -> title.text = bottom
+            right -> title.text = right
+            else -> title.text = left
+        }
     }
 
 }

@@ -27,6 +27,7 @@
             android:contentDescription="TOP"
             android:elevation="5dp"
             android:src="@drawable/icon"
+            android:onClick="@{() -> viewModel.onClickButton(viewModel.top,context)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
