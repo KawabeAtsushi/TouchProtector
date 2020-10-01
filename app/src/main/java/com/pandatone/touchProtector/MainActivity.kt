@@ -8,6 +8,7 @@ import android.util.DisplayMetrics
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.pandatone.touchProtector.databinding.MainActivityBinding
+import kotlin.math.min
 
 
 /**
@@ -26,14 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         /** ID for the runtime permission dialog */
         private const val OVERLAY_PERMISSION_REQUEST_CODE = 1
-        private const val TOP = "top"
-        private const val BOTTOM = "bottom"
-        private const val LEFT = "left"
-        private const val RIGHT = "right"
-
-        //プリファレンスキー
-        private const val PREF_NAME = "my_settings"
-        private const val FIRST_DATE = "firstDate"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,24 +34,26 @@ class MainActivity : AppCompatActivity() {
         val binding: MainActivityBinding = MainActivityBinding.inflate(layoutInflater)
         viewModel = MainViewModel()
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         setContentView(binding.root)
         requestOverlayPermission()
 
         setViews()
 
-        val pref = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
-        val firstDate = pref.getLong(FIRST_DATE, 0)
+        val pref = getSharedPreferences(PREF.Name.key, MODE_PRIVATE)
+        val firstDate = pref.getLong(PREF.FirstDate.key, 0)
         if (firstDate == 0L) {
             initialBoot()
         } else {
-            viewModel.setTopParam(pref.getInt("topHeight", 0), pref.getInt("topWidth", 0))
-            viewModel.setBottomParam(pref.getInt("bottomHeight", 0), pref.getInt("bottomWidth", 0))
-            viewModel.setRightParam(pref.getInt("rightHeight", 0), pref.getInt("rightWidth", 0))
-            viewModel.setLeftParam(pref.getInt("leftHeight", 0), pref.getInt("leftWidth", 0))
+            viewModel.setTopParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopW.key, 0))
+            viewModel.setBottomParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopH.key, 0))
+            viewModel.setRightParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopH.key, 0))
+            viewModel.setLeftParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopH.key, 0))
         }
+        changeIconSize(pref.getInt("topHeight", 0), pref.getInt("topWidth", 0),100)
 
         val statusView = findViewById<TextView>(R.id.status)
-        val lastDay = System.currentTimeMillis() - pref.getLong(FIRST_DATE, 0)
+        val lastDay = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
         val limit = 72 * 3600 * 1000
         if (lastDay > limit) {
             statusView.text = getString(R.string.status_unlimited)
@@ -75,17 +70,37 @@ class MainActivity : AppCompatActivity() {
             setOnCheckedChangeListener { _, isChecked ->
                 val heightStr = heightEt.text.toString()
                 if (heightStr != "") {
-                    setParams(TOP, height = Integer.parseInt(heightStr))
+                    setParams(KeyStore.TOP, height = Integer.parseInt(heightStr))
                 }
                 val widthStr = widthEt.text.toString()
                 if (widthStr != "") {
-                    setParams(TOP, width = Integer.parseInt(widthStr))
+                    setParams(KeyStore.TOP, width = Integer.parseInt(widthStr))
                 }
                 OverlayService.transBackground = transCheck.isChecked
                 if (isChecked) OverlayService.start(this@MainActivity)
                 else OverlayService.stop(this@MainActivity)
             }
         }
+
+        findViewById<SeekBar>(R.id.seekBar).setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener {
+                //ツマミがドラッグされると呼ばれる
+                override fun onProgressChanged(
+                    seekBar: SeekBar, progress: Int, fromUser: Boolean
+                ) {
+                    changeIconSize(pref.getInt("topHeight", 0), pref.getInt("topWidth", 0),progress)
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar) {
+                    // ツマミがタッチされた時に呼ばれる
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    // ツマミがリリースされた時に呼ばれる
+                }
+
+            }
+        )
     }
 
     private fun setViews() {
@@ -102,12 +117,12 @@ class MainActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(dm)
         val dWidth = dm.widthPixels
         val dHeight = dm.heightPixels
-        setParams(TOP, height = 200, width = dWidth)
-        setParams(BOTTOM, height = 200, width = dWidth)
-        setParams(RIGHT, height = dHeight, width = 100)
-        setParams(LEFT, height = dHeight, width = 100)
-        getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit().apply {
-            putLong(FIRST_DATE, System.currentTimeMillis())
+        setParams(KeyStore.TOP, height = 200, width = dWidth)
+        setParams(KeyStore.BOTTOM, height = 200, width = dWidth)
+        setParams(KeyStore.RIGHT, height = dHeight, width = 100)
+        setParams(KeyStore.LEFT, height = dHeight, width = 100)
+        getSharedPreferences(PREF.Name.key, MODE_PRIVATE).edit().apply {
+            putLong(PREF.FirstDate.key, System.currentTimeMillis())
             apply()
         }
         Toast.makeText(this, "First", Toast.LENGTH_SHORT).show()
@@ -139,16 +154,23 @@ class MainActivity : AppCompatActivity() {
     private fun setParams(position: String, height: Int = -1, width: Int = -1) {
 
         when (position) {
-            TOP -> viewModel.setTopParam(height, width)
-            BOTTOM -> viewModel.setBottomParam(height, width)
-            RIGHT -> viewModel.setRightParam(height, width)
+            KeyStore.TOP -> viewModel.setTopParam(height, width)
+            KeyStore.BOTTOM -> viewModel.setBottomParam(height, width)
+            KeyStore.RIGHT -> viewModel.setRightParam(height, width)
             else -> viewModel.setLeftParam(height, width)
         }
         //プリファレンス（設定）に保存
-        getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit().apply {
+        getSharedPreferences(PREF.Name.key, MODE_PRIVATE).edit().apply {
             if (height > 0) putInt(position + "Height", height)
             if (width > 0) putInt(position + "Width", width)
             apply()
         }
+    }
+
+    private fun changeIconSize(height: Int,width: Int,progress:Int){
+        val maxSize = min(height,width)
+        val ratio = progress / 100f //(min)0 ~ 1(max)
+        val size = ratio * maxSize
+        viewModel.setTopParam(size = size.toInt())
     }
 }

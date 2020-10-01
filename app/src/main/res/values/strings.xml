@@ -11,4 +11,6 @@
     <string name="hours">hours</string>
     <string name="mins">minutes</string>
     <string name="icon_size">icon size</string>
+    <string name="back_on">Back operation:ON</string>
+    <string name="back_off">Back operation:OFF</string>
 </resources>

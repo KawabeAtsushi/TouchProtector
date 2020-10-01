@@ -12,4 +12,6 @@
     <string name="hours">時間</string>
     <string name="mins">分</string>
     <string name="icon_size">アイコンの大きさ</string>
+    <string name="back_on">背面操作:ON</string>
+    <string name="back_off">背面操作:OFF</string>
 </resources>

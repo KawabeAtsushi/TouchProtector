@@ -2,36 +2,40 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-        <variable
-            name="olViewModel"
-            type="com.pandatone.touchProtector.MainViewModel" />
-    </data>
-
     <com.pandatone.touchProtector.OverlayView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
+            android:id="@+id/cat_background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:background="#39FFC107"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/cat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:background="#39FFC107"
+                android:layout_gravity="center"
                 android:src="@drawable/icon"
                 android:visibility="visible" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/through_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:background="#39FF074D"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/cat_through"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:background="#39FF074D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:src="@drawable/icon"
                 android:visibility="gone" />
         </FrameLayout>

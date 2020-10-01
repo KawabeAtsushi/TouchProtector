@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
+import com.pandatone.touchProtector.databinding.OverlayViewBinding
 
 
 class OverlayView @JvmOverloads constructor(
@@ -73,4 +74,5 @@ class OverlayView @JvmOverloads constructor(
         windowManager.removeView(this)
         windowManager.addView(this, layoutParams)
     }
+
 }
