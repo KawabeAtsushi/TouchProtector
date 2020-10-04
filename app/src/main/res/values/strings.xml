@@ -13,4 +13,8 @@
     <string name="icon_size">icon size</string>
     <string name="back_on">Back operation:ON</string>
     <string name="back_off">Back operation:OFF</string>
+    <string name="disp_size">DisplaySize : </string>
+    <string name="limit_title">The trial period has expired</string>
+    <string name="limit_text">Please upgrade from the button below to continue using it.</string>
+    <string name="upgrade">アップグレード</string>
 </resources>

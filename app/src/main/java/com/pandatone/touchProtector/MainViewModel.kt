@@ -1,16 +1,17 @@
 package com.pandatone.touchProtector
 
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel()  {
+class MainViewModel : ViewModel() {
 
-    val top = "top"
-    val bottom = "bottom"
-    val left = "left"
-    val right = "right"
+    val top = "Top"
+    val bottom = "Bottom"
+    val left = "Left"
+    val right = "Right"
 
     //TOP
     private val _topHeight = MutableLiveData<Int>().also { mutableLiveData ->
@@ -92,14 +93,77 @@ class MainViewModel : ViewModel()  {
     }
 
     //onClick
-    fun onClickButton(title: TextView, position:String){
+    fun onClickButton(
+        title: TextView,
+        heightTv: TextView,
+        widthTv: TextView,
+        heightEt: EditText,
+        widthEt: EditText,
+        position: String
+    ) {
 
         when (position) {
-            top -> title.text = top
-            bottom -> title.text = bottom
-            right -> title.text = right
-            else -> title.text = left
+            top -> onClick(
+                top,
+                title,
+                topHeight,
+                topWidth,
+                heightTv,
+                widthTv,
+                heightEt,
+                widthEt
+            )
+            bottom -> onClick(
+                bottom,
+                title,
+                bottomHeight,
+                bottomWidth,
+                heightTv,
+                widthTv,
+                heightEt,
+                widthEt
+            )
+            right -> onClick(
+                right,
+                title,
+                rightHeight,
+                rightWidth,
+                heightTv,
+                widthTv,
+                heightEt,
+                widthEt
+            )
+            else -> onClick(
+                left,
+                title,
+                leftHeight,
+                leftWidth,
+                heightTv,
+                widthTv,
+                heightEt,
+                widthEt
+            )
         }
+    }
+
+    private fun onClick(
+        position: String,
+        title: TextView,
+        height: LiveData<Int>,
+        width: LiveData<Int>,
+        heightTv: TextView,
+        widthTv: TextView,
+        heightEt: EditText,
+        widthEt: EditText
+    ) {
+        StatusHolder.nowPos = position
+        MainActivity.nowHeight = height
+        MainActivity.nowWidth = width
+        title.text = position
+        heightTv.text = height.value.toString()
+        widthTv.text = width.value.toString()
+        heightEt.setText(height.value.toString())
+        widthEt.setText(width.value.toString())
     }
 
 }

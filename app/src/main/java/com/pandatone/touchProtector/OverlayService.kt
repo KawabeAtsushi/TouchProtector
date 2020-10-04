@@ -9,6 +9,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.updatePadding
+import kotlinx.android.synthetic.main.main_activity.view.*
+import java.sql.Time
 
 /**
  * A foreground service for managing the life cycle of overlay view.
@@ -17,6 +19,7 @@ class OverlayService() : Service() {
     companion object {
         private const val ACTION_SHOW = "SHOW"
         private const val ACTION_HIDE = "HIDE"
+        private const val ACTION_REFRESH = "REFRESH"
         var THROUGH = false
         var transBackground = false
 
@@ -30,6 +33,13 @@ class OverlayService() : Service() {
         fun stop(context: Context) {
             val intent = Intent(context, OverlayService::class.java).apply {
                 action = ACTION_HIDE
+            }
+            context.startService(intent)
+        }
+
+        fun refresh(context: Context) {
+            val intent = Intent(context, OverlayService::class.java).apply {
+                action = ACTION_REFRESH
             }
             context.startService(intent)
         }
@@ -68,6 +78,11 @@ class OverlayService() : Service() {
                     isActive = false
                     overlayView.hide()
                     stopSelf()
+                }
+                ACTION_REFRESH -> {
+                    setViews()
+                    refresh()
+                    overlayView.refresh()
                 }
                 else -> MyLog.e("Need action property to start ${OverlayService::class.java.simpleName}")
             }
