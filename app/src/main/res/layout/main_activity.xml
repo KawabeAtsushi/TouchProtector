@@ -27,7 +27,7 @@
             android:contentDescription="TOP"
             android:elevation="5dp"
             android:src="@drawable/icon"
-            android:onClick="@{() -> viewModel.onClickButton(title,viewModel.top)}"
+            android:onClick="@{() -> viewModel.changePosition(0)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
             android:contentDescription="RIGHT"
             android:elevation="5dp"
             android:src="@drawable/icon"
-            android:onClick="@{() -> viewModel.onClickButton(title,viewModel.right)}"
+            android:onClick="@{() -> viewModel.changePosition(1)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
             android:contentDescription="BOTTOM"
             android:elevation="5dp"
             android:src="@drawable/icon"
-            android:onClick="@{() -> viewModel.onClickButton(title,viewModel.bottom)}"
+            android:onClick="@{() -> viewModel.changePosition(2)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -72,7 +72,7 @@
             android:contentDescription="LEFT"
             android:elevation="5dp"
             android:src="@drawable/icon"
-            android:onClick="@{() -> viewModel.onClickButton(title,viewModel.left)}"
+            android:onClick="@{() -> viewModel.changePosition(3)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +82,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             app:layout_constraintBottom_toTopOf="@id/bottom_button"
             app:layout_constraintEnd_toStartOf="@id/right_button"
             app:layout_constraintStart_toEndOf="@id/left_button"
@@ -91,12 +91,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/individual_layout"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/card_background"
                 android:paddingVertical="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/transparent_check">
 
                 <TextView
                     android:id="@+id/title"
@@ -207,21 +209,8 @@
                     android:layout_marginTop="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/width_edit_field" />
-
-                <ImageButton
-                    android:id="@+id/refresh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/circle_background"
-                    android:backgroundTint="#EEE"
-                    android:elevation="2dp"
-                    android:padding="7dp"
-                    android:src="@drawable/ic_refresh"
-                    app:layout_constraintBottom_toBottomOf="@id/toggle_button"
-                    app:layout_constraintStart_toEndOf="@id/toggle_button"
-                    app:layout_constraintTop_toTopOf="@id/toggle_button" />
+                    app:layout_constraintTop_toBottomOf="@id/width_edit_field"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -230,36 +219,35 @@
                 android:id="@+id/transparent_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/transparent_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/individual_layout" />
+                app:layout_constraintBottom_toTopOf="@id/size"/>
 
             <TextView
                 android:id="@+id/size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:text="@string/icon_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/transparent_check" />
+                app:layout_constraintBottom_toTopOf="@id/seekBar"/>
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:progress="100"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/size" />
+                app:layout_constraintBottom_toTopOf="@id/status"/>
 
             <TextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:text="status"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

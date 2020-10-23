@@ -15,10 +15,14 @@ enum class PREF(val key: String) {
     FirstDate("first_date"),
     TopH("topHeight"),
     TopW("topWidth"),
+    TopActive("topActive"),
     BottomH("bottomHeight"),
     BottomW("bottomWidth"),
+    BottomActive("bottomActive"),
     LeftH("leftHeight"),
     LeftW("leftWidth"),
+    LeftActive("leftActive"),
     RightH("rightHeight"),
-    RightW("rightWidth")
+    RightW("rightWidth"),
+    RightActive("rightActive")
 }
