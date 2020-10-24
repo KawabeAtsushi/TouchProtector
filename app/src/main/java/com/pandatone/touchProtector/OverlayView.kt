@@ -3,11 +3,11 @@ package com.pandatone.touchProtector
 import android.content.Context
 import android.graphics.PixelFormat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
-import com.pandatone.touchProtector.databinding.OverlayViewBinding
 
 
 class OverlayView @JvmOverloads constructor(
@@ -21,8 +21,8 @@ class OverlayView @JvmOverloads constructor(
             View.inflate(context, R.layout.overlay_view, null) as OverlayView
     }
 
-    private var height = MainActivity.viewModel.topHeight.value
-    private var width = MainActivity.viewModel.topWidth.value
+    private var height = MainActivity.nowHeight.value
+    private var width = MainActivity.nowWidth.value
 
     private val windowManager: WindowManager =
         ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -43,14 +43,9 @@ class OverlayView @JvmOverloads constructor(
     fun show() {
         if (!this.isShown) {
             layoutParams.gravity = Gravity.TOP
-            if (height != 0) {
-                layoutParams.height = height ?: 0
-            }
-            if (width != 0) {
-                layoutParams.width = width ?: 0
-            }
+            layoutParams.height = height ?: 0
+            layoutParams.width = width ?: 0
             windowManager.addView(this, layoutParams)
-
         }
     }
 
@@ -62,12 +57,18 @@ class OverlayView @JvmOverloads constructor(
         }
     }
 
+    /** Refresh this view. */
+    fun refresh() {
+        layoutParams.height = MainActivity.nowHeight.value ?: 0
+        layoutParams.width = MainActivity.nowWidth.value ?: 0
+        windowManager.removeView(this)
+        windowManager.addView(this, layoutParams)
+    }
+
     fun through() {
-        if (height != 0) {
-            layoutParams.height = height?:0
-        }
+        layoutParams.height = height ?: 0
         if (!OverlayService.THROUGH) {
-            layoutParams.width = width?:0
+            layoutParams.width = width ?: 0
         } else {
             layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
         }

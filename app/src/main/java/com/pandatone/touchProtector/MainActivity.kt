@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var viewModel: MainViewModel
+        lateinit var nowHeight: LiveData<Int>
+        lateinit var nowWidth: LiveData<Int>
 
         /** ID for the runtime permission dialog */
         private const val OVERLAY_PERMISSION_REQUEST_CODE = 1
@@ -51,16 +54,27 @@ class MainActivity : AppCompatActivity() {
             initialBoot()
         } else {
             viewModel.setTopParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopW.key, 0))
-            viewModel.setBottomParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopH.key, 0))
-            viewModel.setRightParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopH.key, 0))
-            viewModel.setLeftParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopH.key, 0))
+            viewModel.setBottomParam(
+                pref.getInt(PREF.BottomH.key, 0),
+                pref.getInt(PREF.BottomW.key, 0)
+            )
+            viewModel.setRightParam(
+                pref.getInt(PREF.RightH.key, 0),
+                pref.getInt(PREF.RightW.key, 0)
+            )
+            viewModel.setLeftParam(pref.getInt(PREF.LeftH.key, 0), pref.getInt(PREF.LeftW.key, 0))
         }
+
+        nowHeight = viewModel.topHeight
+        nowWidth = viewModel.topWidth
+
         changeIconSize(pref.getInt("topHeight", 0), pref.getInt("topWidth", 0), 100)
 
         val statusView = findViewById<TextView>(R.id.status)
         val lastDay = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
         val limit = 72 * 3600 * 1000
         if (lastDay > limit) {
+            limitDialog()
             statusView.text = getString(R.string.status_unlimited)
         } else {
             val minutes = (limit - lastDay) / 60000
@@ -92,6 +106,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        findViewById<ImageButton>(R.id.refresh).setOnClickListener {
+            update()
+            if (OverlayService.isActive) OverlayService.refresh(this@MainActivity)
+        }
+
         findViewById<SeekBar>(R.id.seekBar).setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
                 //ツマミがドラッグされると呼ばれる
@@ -99,8 +118,8 @@ class MainActivity : AppCompatActivity() {
                     seekBar: SeekBar, progress: Int, fromUser: Boolean
                 ) {
                     changeIconSize(
-                        pref.getInt("topHeight", 0),
-                        pref.getInt("topWidth", 0),
+                        nowHeight.value ?: 0,
+                        nowWidth.value ?: 0,
                         progress
                     )
                 }
@@ -130,6 +149,12 @@ class MainActivity : AppCompatActivity() {
         wText = findViewById<TextView>(R.id.width)
         hText = findViewById<TextView>(R.id.height)
         transCheck = findViewById<CheckBox>(R.id.transparent_check)
+        val dm = DisplayMetrics()
+        windowManager.defaultDisplay.getRealMetrics(dm)
+        val dWidth = dm.widthPixels.toString()
+        val dHeight = dm.heightPixels.toString()
+        val displaySize = findViewById<TextView>(R.id.display_size)
+        displaySize.text = getString(R.string.disp_size) + "$dWidth × $dHeight"
     }
 
     //高さ・幅の変更
@@ -210,11 +235,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialBoot() {
         val dm = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(dm)
-        val dWidth = dm.widthPixels
+        windowManager.defaultDisplay.getRealMetrics(dm)
         val dHeight = dm.heightPixels
-        setParams(KeyStore.TOP, height = 200, width = dWidth)
-        setParams(KeyStore.BOTTOM, height = 200, width = dWidth)
+        setParams(KeyStore.TOP, height = 200, width = dHeight)
+        setParams(KeyStore.BOTTOM, height = 200, width = dHeight)
         setParams(KeyStore.RIGHT, height = dHeight, width = 100)
         setParams(KeyStore.LEFT, height = dHeight, width = 100)
         getSharedPreferences(PREF.Name.key, MODE_PRIVATE).edit().apply {
@@ -247,4 +271,34 @@ class MainActivity : AppCompatActivity() {
     /** パーミッションチェック */
     private fun isOverlayGranted() = Settings.canDrawOverlays(this)
 
+
+    //期限が来たら出す
+    private fun limitDialog() {
+        AlertDialog.Builder(this)
+            .setCancelable(false)
+            .setTitle(R.string.limit_title)
+            .setMessage(R.string.limit_text)
+            .setPositiveButton(R.string.upgrade, { dialog, which ->
+                // TODO:Yesが押された時の挙動
+            })
+            .show()
+    }
+
+    private fun update() {
+        val heightStr = heightEt.text.toString()
+        if (heightStr != "") {
+            setParams(StatusHolder.nowPos, height = Integer.parseInt(heightStr))
+        }
+        val widthStr = widthEt.text.toString()
+        if (widthStr != "") {
+            setParams(StatusHolder.nowPos, width = Integer.parseInt(widthStr))
+        }
+        OverlayService.transBackground = transCheck.isChecked
+        val seekBar = findViewById<SeekBar>(R.id.seekBar)
+        changeIconSize(
+            nowHeight.value ?: 0,
+            nowWidth.value ?: 0,
+            seekBar.progress
+        )
+    }
 }

@@ -14,4 +14,8 @@
     <string name="icon_size">アイコンの大きさ</string>
     <string name="back_on">背面操作:ON</string>
     <string name="back_off">背面操作:OFF</string>
+    <string name="disp_size">画面サイズ : </string>
+    <string name="limit_title">お試し期間が終了しました</string>
+    <string name="limit_text">引き続き使用するには以下のボタンからアップグレードしてください。</string>
+    <string name="upgrade">upgrade</string>
 </resources>

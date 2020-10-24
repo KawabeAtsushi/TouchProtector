@@ -3,10 +3,10 @@ package com.pandatone.touchProtector
 import android.util.Log
 
 object KeyStore {
-    const val TOP = "top"
-    const val BOTTOM = "bottom"
-    const val LEFT = "left"
-    const val RIGHT = "right"
+    const val TOP = "Top"
+    const val BOTTOM = "Bottom"
+    const val LEFT = "Left"
+    const val RIGHT = "Right"
 }
 
 //プリファレンスキー

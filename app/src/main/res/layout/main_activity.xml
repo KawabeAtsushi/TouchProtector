@@ -77,7 +77,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--    上下左右に肉球マーク　-->
+        <TextView
+            android:id="@+id/display_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/disp_size"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_button" />
+
+        <!--    カード　-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -86,7 +97,7 @@
             app:layout_constraintBottom_toTopOf="@id/bottom_button"
             app:layout_constraintEnd_toStartOf="@id/right_button"
             app:layout_constraintStart_toEndOf="@id/left_button"
-            app:layout_constraintTop_toBottomOf="@id/top_button">
+            app:layout_constraintTop_toBottomOf="@id/display_size">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/individual_layout"
@@ -104,48 +115,25 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/height"
-                    android:textStyle="bold"
+                    android:text="Top"
                     android:textSize="30sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/height_index"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/index_background"
-                    android:text="@string/height"
-                    android:textColor="@android:color/white"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title" />
-
-                <TextView
-                    android:id="@+id/height"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="@{viewModel.topHeight.toString()}"
-                    app:layout_constraintBottom_toBottomOf="@id/height_index"
-                    app:layout_constraintStart_toEndOf="@id/height_index"
-                    app:layout_constraintTop_toTopOf="@id/height_index" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/width_index"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/index_background"
                     android:text="@string/width"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/height_index"
-                    app:layout_constraintTop_toBottomOf="@id/height_index" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
 
                 <TextView
                     android:id="@+id/width"
@@ -157,20 +145,42 @@
                     app:layout_constraintStart_toEndOf="@id/height_index"
                     app:layout_constraintTop_toTopOf="@id/width_index" />
 
+                <TextView
+                    android:id="@+id/height_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/index_background"
+                    android:text="@string/height"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/width_index"
+                    app:layout_constraintTop_toBottomOf="@id/width_index" />
+
+                <TextView
+                    android:id="@+id/height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@{viewModel.topHeight.toString()}"
+                    app:layout_constraintBottom_toBottomOf="@id/height_index"
+                    app:layout_constraintStart_toEndOf="@id/height_index"
+                    app:layout_constraintTop_toTopOf="@id/height_index" />
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/height_edit_field"
+                    android:id="@+id/width_edit_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:hint="@string/width"
                     android:padding="5dp"
-                    android:hint="@string/height"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/width_index"
-                    tools:ignore="HardcodedText">
+                    app:layout_constraintTop_toBottomOf="@id/height_index">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/height_edit"
+                        android:id="@+id/width_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="3"
@@ -181,18 +191,17 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/width_edit_field"
+                    android:id="@+id/height_edit_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="@string/height"
                     android:padding="5dp"
-                    android:hint="@string/width"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/height_edit_field"
-                    tools:ignore="HardcodedText">
+                    app:layout_constraintTop_toBottomOf="@id/width_edit_field">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/width_edit"
+                        android:id="@+id/height_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="3"
@@ -239,6 +248,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:max="100"
+                android:min="0"
                 android:progress="100"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

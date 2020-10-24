@@ -102,4 +102,24 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    private fun onClick(
+        position: String,
+        title: TextView,
+        height: LiveData<Int>,
+        width: LiveData<Int>,
+        heightTv: TextView,
+        widthTv: TextView,
+        heightEt: EditText,
+        widthEt: EditText
+    ) {
+        StatusHolder.nowPos = position
+        MainActivity.nowHeight = height
+        MainActivity.nowWidth = width
+        title.text = position
+        heightTv.text = height.value.toString()
+        widthTv.text = width.value.toString()
+        heightEt.setText(height.value.toString())
+        widthEt.setText(width.value.toString())
+    }
+
 }
