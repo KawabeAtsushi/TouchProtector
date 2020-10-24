@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var viewModel: MainViewModel
-        lateinit var nowHeight: LiveData<Int>
-        lateinit var nowWidth: LiveData<Int>
 
         /** ID for the runtime permission dialog */
         private const val OVERLAY_PERMISSION_REQUEST_CODE = 1
@@ -64,9 +62,6 @@ class MainActivity : AppCompatActivity() {
             )
             viewModel.setLeftParam(pref.getInt(PREF.LeftH.key, 0), pref.getInt(PREF.LeftW.key, 0))
         }
-
-        nowHeight = viewModel.topHeight
-        nowWidth = viewModel.topWidth
 
         changeIconSize(pref.getInt("topHeight", 0), pref.getInt("topWidth", 0), 100)
 
@@ -106,11 +101,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<ImageButton>(R.id.refresh).setOnClickListener {
-            update()
-            if (OverlayService.isActive) OverlayService.refresh(this@MainActivity)
-        }
-
         findViewById<SeekBar>(R.id.seekBar).setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
                 //ツマミがドラッグされると呼ばれる
@@ -118,8 +108,7 @@ class MainActivity : AppCompatActivity() {
                     seekBar: SeekBar, progress: Int, fromUser: Boolean
                 ) {
                     changeIconSize(
-                        nowHeight.value ?: 0,
-                        nowWidth.value ?: 0,
+                        pref.getInt("topHeight", 0), pref.getInt("topWidth", 0),
                         progress
                     )
                 }
@@ -282,23 +271,5 @@ class MainActivity : AppCompatActivity() {
                 // TODO:Yesが押された時の挙動
             })
             .show()
-    }
-
-    private fun update() {
-        val heightStr = heightEt.text.toString()
-        if (heightStr != "") {
-            setParams(StatusHolder.nowPos, height = Integer.parseInt(heightStr))
-        }
-        val widthStr = widthEt.text.toString()
-        if (widthStr != "") {
-            setParams(StatusHolder.nowPos, width = Integer.parseInt(widthStr))
-        }
-        OverlayService.transBackground = transCheck.isChecked
-        val seekBar = findViewById<SeekBar>(R.id.seekBar)
-        changeIconSize(
-            nowHeight.value ?: 0,
-            nowWidth.value ?: 0,
-            seekBar.progress
-        )
     }
 }

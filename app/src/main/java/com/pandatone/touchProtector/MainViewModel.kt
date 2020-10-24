@@ -6,6 +6,26 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
 
+    val nowHeight: Int
+        get() {
+            return when (nowPos.value) {
+                KeyStore.TOP -> topHeight.value?:0
+                KeyStore.BOTTOM -> bottomHeight.value?:0
+                KeyStore.RIGHT -> rightHeight.value?:0
+                else -> leftHeight.value?:0
+            }
+        }
+
+    val nowWidth: Int
+        get() {
+            return when (nowPos.value) {
+                KeyStore.TOP -> topWidth.value?:0
+                KeyStore.BOTTOM -> bottomWidth.value?:0
+                KeyStore.RIGHT -> rightWidth.value?:0
+                else -> leftWidth.value?:0
+            }
+        }
+
     //TOP
     private val _topHeight = MutableLiveData<Int>().also { mutableLiveData ->
         mutableLiveData.value = 200
@@ -100,26 +120,6 @@ class MainViewModel : ViewModel() {
             2 -> _nowPos.value = KeyStore.BOTTOM
             else -> _nowPos.value = KeyStore.LEFT
         }
-    }
-
-    private fun onClick(
-        position: String,
-        title: TextView,
-        height: LiveData<Int>,
-        width: LiveData<Int>,
-        heightTv: TextView,
-        widthTv: TextView,
-        heightEt: EditText,
-        widthEt: EditText
-    ) {
-        StatusHolder.nowPos = position
-        MainActivity.nowHeight = height
-        MainActivity.nowWidth = width
-        title.text = position
-        heightTv.text = height.value.toString()
-        widthTv.text = width.value.toString()
-        heightEt.setText(height.value.toString())
-        widthEt.setText(width.value.toString())
     }
 
 }

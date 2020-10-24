@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
 
 
 class OverlayView @JvmOverloads constructor(
@@ -21,8 +22,9 @@ class OverlayView @JvmOverloads constructor(
             View.inflate(context, R.layout.overlay_view, null) as OverlayView
     }
 
-    private var height = MainActivity.nowHeight.value
-    private var width = MainActivity.nowWidth.value
+    private val viewModel = MainActivity.viewModel
+    private val nowHeight = viewModel.nowHeight
+    private val nowWidth = viewModel.nowWidth
 
     private val windowManager: WindowManager =
         ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -43,8 +45,8 @@ class OverlayView @JvmOverloads constructor(
     fun show() {
         if (!this.isShown) {
             layoutParams.gravity = Gravity.TOP
-            layoutParams.height = height ?: 0
-            layoutParams.width = width ?: 0
+            layoutParams.height = nowHeight ?: 0
+            layoutParams.width = nowWidth ?: 0
             windowManager.addView(this, layoutParams)
         }
     }
@@ -57,18 +59,10 @@ class OverlayView @JvmOverloads constructor(
         }
     }
 
-    /** Refresh this view. */
-    fun refresh() {
-        layoutParams.height = MainActivity.nowHeight.value ?: 0
-        layoutParams.width = MainActivity.nowWidth.value ?: 0
-        windowManager.removeView(this)
-        windowManager.addView(this, layoutParams)
-    }
-
     fun through() {
-        layoutParams.height = height ?: 0
+        layoutParams.height = nowWidth ?: 0
         if (!OverlayService.THROUGH) {
-            layoutParams.width = width ?: 0
+            layoutParams.width = nowWidth ?: 0
         } else {
             layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
         }

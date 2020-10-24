@@ -16,5 +16,6 @@
     <string name="disp_size">DisplaySize : </string>
     <string name="limit_title">The trial period has expired</string>
     <string name="limit_text">Please upgrade from the button below to continue using it.</string>
-    <string name="upgrade">アップグレード</string>
+    <string name="upgrade">upgrade</string>
+    <string name="update_description">* Update the status by turning it on again</string>
 </resources>

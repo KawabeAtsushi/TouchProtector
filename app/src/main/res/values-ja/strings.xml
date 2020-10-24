@@ -17,5 +17,6 @@
     <string name="disp_size">画面サイズ : </string>
     <string name="limit_title">お試し期間が終了しました</string>
     <string name="limit_text">引き続き使用するには以下のボタンからアップグレードしてください。</string>
-    <string name="upgrade">upgrade</string>
+    <string name="upgrade">アップグレード</string>
+    <string name="update_description">※再度ONにして状態を更新</string>
 </resources>
