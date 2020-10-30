@@ -44,7 +44,12 @@ class OverlayView @JvmOverloads constructor(
     @Synchronized
     fun show() {
         if (!this.isShown) {
-            layoutParams.gravity = Gravity.TOP
+            layoutParams.gravity = when (viewModel.nowPos.value!!) {
+                KeyStore.TOP -> Gravity.TOP
+                KeyStore.BOTTOM -> Gravity.BOTTOM
+                KeyStore.RIGHT -> Gravity.END
+                else -> Gravity.START
+            }
             layoutParams.height = nowHeight ?: 0
             layoutParams.width = nowWidth ?: 0
             windowManager.addView(this, layoutParams)

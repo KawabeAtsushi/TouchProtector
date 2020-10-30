@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var wText: TextView
     private lateinit var hText: TextView
     private lateinit var transCheck: CheckBox
+    private var allowOnClick = true
 
     companion object {
         lateinit var viewModel: MainViewModel
@@ -82,22 +83,24 @@ class MainActivity : AppCompatActivity() {
         switch.apply {
             isChecked = OverlayService.isActive
             setOnCheckedChangeListener { _, isChecked ->
-                val heightStr = hEdit.text.toString()
-                if (heightStr != "") {
-                    setParams(viewModel.nowPos.value!!, height = Integer.parseInt(heightStr))
+                if (allowOnClick) {
+                    val heightStr = hEdit.text.toString()
+                    if (heightStr != "") {
+                        setParams(viewModel.nowPos.value!!, height = Integer.parseInt(heightStr))
+                    }
+                    val widthStr = wEdit.text.toString()
+                    if (widthStr != "") {
+                        setParams(viewModel.nowPos.value!!, width = Integer.parseInt(widthStr))
+                    }
+                    OverlayService.transBackground = transCheck.isChecked
+                    //プリファレンス（設定）に保存
+                    getSharedPreferences(PREF.Name.key, MODE_PRIVATE).edit().apply {
+                        putBoolean(viewModel.nowPos.value!! + "Active", isChecked)
+                        apply()
+                    }
+                    if (isChecked) OverlayService.start(this@MainActivity)
+                    else OverlayService.stop(this@MainActivity)
                 }
-                val widthStr = wEdit.text.toString()
-                if (widthStr != "") {
-                    setParams(viewModel.nowPos.value!!, width = Integer.parseInt(widthStr))
-                }
-                OverlayService.transBackground = transCheck.isChecked
-                //プリファレンス（設定）に保存
-                getSharedPreferences(PREF.Name.key, MODE_PRIVATE).edit().apply {
-                    putBoolean(viewModel.nowPos.value!! + "Active", isChecked)
-                    apply()
-                }
-                if (isChecked) OverlayService.start(this@MainActivity)
-                else OverlayService.stop(this@MainActivity)
             }
         }
 
@@ -174,6 +177,7 @@ class MainActivity : AppCompatActivity() {
     //positionボタンクリック
     private fun onClickButton() {
         val pref = getSharedPreferences(PREF.Name.key, MODE_PRIVATE)
+        allowOnClick = false
         when (viewModel.nowPos.value!!) {
             KeyStore.TOP -> {
                 setValue(
@@ -208,6 +212,7 @@ class MainActivity : AppCompatActivity() {
                 switch.isChecked = pref.getBoolean(PREF.LeftActive.key, false)
             }
         }
+        allowOnClick = true
     }
 
     private fun setValue(position: String, height: String, width: String) {
