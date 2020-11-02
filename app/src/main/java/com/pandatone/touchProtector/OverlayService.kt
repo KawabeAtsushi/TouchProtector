@@ -8,9 +8,6 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.view.updatePadding
-import kotlinx.android.synthetic.main.main_activity.view.*
-import java.sql.Time
 
 /**
  * A foreground service for managing the life cycle of overlay view.
@@ -41,9 +38,21 @@ class OverlayService() : Service() {
             private set
     }
 
-    private lateinit var overlayView: OverlayView
-    private lateinit var cat :ImageView
-    private lateinit var catThrough :ImageView
+    private lateinit var topOverlayView: OverlayView
+    private lateinit var bottomOverlayView: OverlayView
+    private lateinit var rightOverlayView: OverlayView
+    private lateinit var leftOverlayView: OverlayView
+    private lateinit var overlayViews: ArrayList<OverlayView>
+
+    private val nowView: OverlayView
+        get() {
+            return when (MainActivity.viewModel.nowPos.value!!) {
+                KeyStore.TOP -> topOverlayView
+                KeyStore.BOTTOM -> bottomOverlayView
+                KeyStore.RIGHT -> rightOverlayView
+                else -> leftOverlayView
+            }
+        }
 
     override fun onCreate() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -51,11 +60,18 @@ class OverlayService() : Service() {
             val notification = MyNotification.build(this)
             startForeground(1, notification)
         }
-        overlayView = OverlayView.create(this)
-        cat = overlayView.findViewById<ImageView>(R.id.cat)
-        catThrough = overlayView.findViewById<ImageView>(R.id.cat_through)
-        setViews()
-        refresh()
+        topOverlayView = OverlayView.create(this)
+        bottomOverlayView = OverlayView.create(this)
+        rightOverlayView = OverlayView.create(this)
+        leftOverlayView = OverlayView.create(this)
+
+        overlayViews = ArrayList()
+        overlayViews.add(topOverlayView)
+        overlayViews.add(bottomOverlayView)
+        overlayViews.add(rightOverlayView)
+        overlayViews.add(leftOverlayView)
+
+        overlayViews.forEach {  view -> setViews(view)}
     }
 
     /** Handles [ACTION_SHOW] and [ACTION_HIDE] intents. */
@@ -64,11 +80,11 @@ class OverlayService() : Service() {
             when (it.action) {
                 ACTION_SHOW -> {
                     isActive = true
-                    overlayView.show()
+                    nowView.show()
                 }
                 ACTION_HIDE -> {
                     isActive = false
-                    overlayView.hide()
+                    nowView.hide()
                     stopSelf()
                 }
                 else -> MyLog.e("Need action property to start ${OverlayService::class.java.simpleName}")
@@ -78,45 +94,52 @@ class OverlayService() : Service() {
     }
 
     /** Cleans up views just in case. */
-    override fun onDestroy() = overlayView.hide()
+    override fun onDestroy() {
+        overlayViews.forEach { view -> view.hide() }
+    }
 
     /** This service does not support binding. */
     override fun onBind(intent: Intent?) = null
 
-    private fun setViews(){
-        val catBackground = overlayView.findViewById<FrameLayout>(R.id.cat_background)
+    private fun setViews(overlayView: OverlayView) {
+
+        val icon = overlayView.findViewById<ImageView>(R.id.cat)
+        val iconThrough = overlayView.findViewById<ImageView>(R.id.cat_through)
+        val iconBackground = overlayView.findViewById<FrameLayout>(R.id.cat_background)
         val throughBackground = overlayView.findViewById<FrameLayout>(R.id.through_background)
 
-        if (transBackground){
-            catBackground.setBackgroundResource(0)
+        if (transBackground) {
+            iconBackground.setBackgroundResource(0)
             throughBackground.setBackgroundResource(0)
         }
 
-        cat.setOnLongClickListener {
-            cat.visibility = View.GONE
-            catBackground.visibility = View.GONE
+        icon.setOnLongClickListener {
+            icon.visibility = View.GONE
+            iconBackground.visibility = View.GONE
             throughBackground.visibility = View.VISIBLE
-            catThrough.visibility = View.VISIBLE
+            iconThrough.visibility = View.VISIBLE
             THROUGH = true
             overlayView.through()
-            Toast.makeText(this,R.string.back_on,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.back_on, Toast.LENGTH_SHORT).show()
             true
         }
-        catThrough.setOnLongClickListener {
-            cat.visibility = View.VISIBLE
-            catBackground.visibility = View.VISIBLE
-            catThrough.visibility = View.GONE
+        iconThrough.setOnLongClickListener {
+            icon.visibility = View.VISIBLE
+            iconBackground.visibility = View.VISIBLE
+            iconThrough.visibility = View.GONE
             throughBackground.visibility = View.GONE
             THROUGH = false
             overlayView.through()
-            Toast.makeText(this,R.string.back_off,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.back_off, Toast.LENGTH_SHORT).show()
             true
         }
+
+        refresh(icon)
     }
 
-    private fun refresh(){
-        val size = MainActivity.viewModel.topSize.value?:0
-        cat.layoutParams.width = size
-        cat.layoutParams.height = size
+    private fun refresh(icon: ImageView) {
+        val size = MainActivity.viewModel.topSize.value ?: 0
+        icon.layoutParams.width = size
+        icon.layoutParams.height = size
     }
 }
