@@ -23,8 +23,6 @@ class OverlayView @JvmOverloads constructor(
     }
 
     private val viewModel = MainActivity.viewModel
-    private val nowHeight = viewModel.nowHeight
-    private val nowWidth = viewModel.nowWidth
 
     private val windowManager: WindowManager =
         ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -50,8 +48,8 @@ class OverlayView @JvmOverloads constructor(
                 KeyStore.RIGHT -> Gravity.END
                 else -> Gravity.START
             }
-            layoutParams.height = nowHeight ?: 0
-            layoutParams.width = nowWidth ?: 0
+            layoutParams.height = viewModel.nowHeight ?: 0
+            layoutParams.width = viewModel.nowWidth ?: 0
             windowManager.addView(this, layoutParams)
         }
     }
@@ -65,9 +63,9 @@ class OverlayView @JvmOverloads constructor(
     }
 
     fun through() {
-        layoutParams.height = nowWidth ?: 0
+        layoutParams.height = viewModel.nowWidth ?: 0
         if (!OverlayService.THROUGH) {
-            layoutParams.width = nowWidth ?: 0
+            layoutParams.width = viewModel.nowWidth ?: 0
         } else {
             layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
         }
