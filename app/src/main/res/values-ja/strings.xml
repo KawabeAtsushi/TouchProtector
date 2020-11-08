@@ -19,4 +19,6 @@
     <string name="limit_text">引き続き使用するには以下のボタンからアップグレードしてください。</string>
     <string name="upgrade">アップグレード</string>
     <string name="update_description">※再度ONにして状態を更新</string>
+    <string name="home">ホーム</string>
+    <string name="setting">設定</string>
 </resources>

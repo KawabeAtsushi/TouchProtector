@@ -5,13 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.DisplayMetrics
-import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.pandatone.touchProtector.databinding.MainActivityBinding
-import kotlin.math.min
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import com.pandatone.touchProtector.ui.main.MainViewModel
+import com.pandatone.touchProtector.ui.main.SectionsPagerAdapter
 
 
 /**
@@ -19,18 +19,12 @@ import kotlin.math.min
  */
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var title: TextView
-    private lateinit var switch: ToggleButton
-    private lateinit var hEdit: EditText
-    private lateinit var wEdit: EditText
-    private lateinit var wText: TextView
-    private lateinit var hText: TextView
-    private lateinit var transCheck: CheckBox
-    private var allowOnClick = true
-
     companion object {
         lateinit var viewModel: MainViewModel
 
+        var dWidth = 100
+        var dHeight = 100
+        var statusText = "No Data"
         /** ID for the runtime permission dialog */
         private const val OVERLAY_PERMISSION_REQUEST_CODE = 1
     }
@@ -38,20 +32,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: MainActivityBinding = MainActivityBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-        setContentView(binding.root)
+        setContentView(R.layout.main_activity)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val viewPager: ViewPager = findViewById(R.id.view_pager)
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = findViewById(R.id.tabs)
+        tabs.setupWithViewPager(viewPager)
         requestOverlayPermission()
 
-        setViews()
+        getDisplaySize()
 
         val pref = getSharedPreferences(PREF.Name.key, MODE_PRIVATE)
         val firstDate = pref.getLong(PREF.FirstDate.key, 0)
         if (firstDate == 0L) {
             initialBoot()
         } else {
+            viewModel.setTopVisible(pref.getBoolean(PREF.TopVisible.key, true))
+            viewModel.setBottomVisible(pref.getBoolean(PREF.BottomVisible.key, true))
+            viewModel.setRightVisible(pref.getBoolean(PREF.RightVisible.key, true))
+            viewModel.setLeftVisible(pref.getBoolean(PREF.LeftVisible.key, true))
             viewModel.setTopParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopW.key, 0))
             viewModel.setBottomParam(
                 pref.getInt(PREF.BottomH.key, 0),
@@ -62,91 +62,27 @@ class MainActivity : AppCompatActivity() {
                 pref.getInt(PREF.RightW.key, 0)
             )
             viewModel.setLeftParam(pref.getInt(PREF.LeftH.key, 0), pref.getInt(PREF.LeftW.key, 0))
+            viewModel.setIconSize(pref.getInt(PREF.IconSize.key, 100))
         }
 
-        changeIconSize(pref.getInt("topHeight", 0), pref.getInt("topWidth", 0), 100)
-
-        val statusView = findViewById<TextView>(R.id.status)
         val lastDay = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
         val limit = 72 * 3600 * 1000
-        if (lastDay > limit) {
+        statusText = if (lastDay > limit) {
             limitDialog()
-            statusView.text = getString(R.string.status_unlimited)
+            getString(R.string.status_unlimited)
         } else {
             val minutes = (limit - lastDay) / 60000
-            statusView.text =
-                getString(R.string.status_trial) + (minutes / 60).toString() +
-                        getString(R.string.hours) + (minutes % 60).toString() + getString(R.string.mins)
+            getString(R.string.status_trial) + (minutes / 60).toString() +
+                    getString(R.string.hours) + (minutes % 60).toString() + getString(R.string.mins)
         }
-
-        // ON/OFFのトグルボタン切り替え
-        switch.apply {
-            isChecked = OverlayService.isActive
-            setOnCheckedChangeListener { _, isChecked ->
-                if (allowOnClick) {
-                    val heightStr = hEdit.text.toString()
-                    if (heightStr != "") {
-                        setParams(viewModel.nowPos.value!!, height = Integer.parseInt(heightStr))
-                    }
-                    val widthStr = wEdit.text.toString()
-                    if (widthStr != "") {
-                        setParams(viewModel.nowPos.value!!, width = Integer.parseInt(widthStr))
-                    }
-                    OverlayService.transBackground = transCheck.isChecked
-                    //プリファレンス（設定）に保存
-                    getSharedPreferences(PREF.Name.key, MODE_PRIVATE).edit().apply {
-                        putBoolean(viewModel.nowPos.value!! + "Active", isChecked)
-                        apply()
-                    }
-                    if (isChecked) OverlayService.start(this@MainActivity)
-                    else OverlayService.stop(this@MainActivity)
-                }
-            }
-        }
-
-        findViewById<SeekBar>(R.id.seekBar).setOnSeekBarChangeListener(
-            object : SeekBar.OnSeekBarChangeListener {
-                //ツマミがドラッグされると呼ばれる
-                override fun onProgressChanged(
-                    seekBar: SeekBar, progress: Int, fromUser: Boolean
-                ) {
-                    changeIconSize(
-                        pref.getInt("topHeight", 0), pref.getInt("topWidth", 0),
-                        progress
-                    )
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                    // ツマミがタッチされた時に呼ばれる
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    // ツマミがリリースされた時に呼ばれる
-                }
-            }
-        )
-
-        // ここでViewModelから流れてきた値を受け取る.
-        viewModel.nowPos.observe(this, Observer {
-            onClickButton()
-        })
 
     }
 
-    private fun setViews() {
-        title = findViewById<TextView>(R.id.title)
-        switch = findViewById<ToggleButton>(R.id.toggle_button)
-        hEdit = findViewById<EditText>(R.id.height_edit)
-        wEdit = findViewById<EditText>(R.id.width_edit)
-        wText = findViewById<TextView>(R.id.width)
-        hText = findViewById<TextView>(R.id.height)
-        transCheck = findViewById<CheckBox>(R.id.transparent_check)
+    private fun getDisplaySize() {
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getRealMetrics(dm)
-        val dWidth = dm.widthPixels.toString()
-        val dHeight = dm.heightPixels.toString()
-        val displaySize = findViewById<TextView>(R.id.display_size)
-        displaySize.text = getString(R.string.disp_size) + "$dWidth × $dHeight"
+        dWidth = dm.widthPixels
+        dHeight = dm.heightPixels
     }
 
     //高さ・幅の変更
@@ -166,61 +102,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //アイコンサイズの変更
-    private fun changeIconSize(height: Int, width: Int, progress: Int) {
-        val maxSize = min(height, width)
-        val ratio = progress / 100f //(min)0 ~ 1(max)
-        val size = ratio * maxSize
-        viewModel.setTopParam(size = size.toInt())
-    }
-
-    //positionボタンクリック
-    private fun onClickButton() {
-        val pref = getSharedPreferences(PREF.Name.key, MODE_PRIVATE)
-        allowOnClick = false
-        when (viewModel.nowPos.value!!) {
-            KeyStore.TOP -> {
-                setValue(
-                    KeyStore.TOP,
-                    viewModel.topHeight.value.toString(),
-                    viewModel.topWidth.value.toString()
-                )
-                switch.isChecked = pref.getBoolean(PREF.TopActive.key, false)
-            }
-            KeyStore.BOTTOM -> {
-                setValue(
-                    KeyStore.BOTTOM,
-                    viewModel.bottomHeight.value.toString(),
-                    viewModel.bottomWidth.value.toString()
-                )
-                switch.isChecked = pref.getBoolean(PREF.BottomActive.key, false)
-            }
-            KeyStore.RIGHT -> {
-                setValue(
-                    KeyStore.RIGHT,
-                    viewModel.rightHeight.value.toString(),
-                    viewModel.rightWidth.value.toString()
-                )
-                switch.isChecked = pref.getBoolean(PREF.RightActive.key, false)
-            }
-            else -> {
-                setValue(
-                    KeyStore.LEFT,
-                    viewModel.leftHeight.value.toString(),
-                    viewModel.leftWidth.value.toString()
-                )
-                switch.isChecked = pref.getBoolean(PREF.LeftActive.key, false)
-            }
-        }
-        allowOnClick = true
-    }
-
-    private fun setValue(position: String, height: String, width: String) {
-        title.text = position
-        hEdit.setText(height)
-        wEdit.setText(width)
-        hText.text = height
-        wText.text = width
+    //期限が来たら出す
+    private fun limitDialog() {
+        AlertDialog.Builder(this)
+            .setCancelable(false)
+            .setTitle(R.string.limit_title)
+            .setMessage(R.string.limit_text)
+            .setPositiveButton(R.string.upgrade, { dialog, which ->
+                // TODO:Yesが押された時の挙動
+            })
+            .show()
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,9 +119,6 @@ class MainActivity : AppCompatActivity() {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun initialBoot() {
-        val dm = DisplayMetrics()
-        windowManager.defaultDisplay.getRealMetrics(dm)
-        val dHeight = dm.heightPixels
         setParams(KeyStore.TOP, height = 200, width = dHeight)
         setParams(KeyStore.BOTTOM, height = 200, width = dHeight)
         setParams(KeyStore.RIGHT, height = dHeight, width = 100)
@@ -239,7 +127,6 @@ class MainActivity : AppCompatActivity() {
             putLong(PREF.FirstDate.key, System.currentTimeMillis())
             apply()
         }
-        Toast.makeText(this, "First", Toast.LENGTH_SHORT).show()
     }
 
     /** パーミッションリクエスト */
@@ -265,16 +152,4 @@ class MainActivity : AppCompatActivity() {
     /** パーミッションチェック */
     private fun isOverlayGranted() = Settings.canDrawOverlays(this)
 
-
-    //期限が来たら出す
-    private fun limitDialog() {
-        AlertDialog.Builder(this)
-            .setCancelable(false)
-            .setTitle(R.string.limit_title)
-            .setMessage(R.string.limit_text)
-            .setPositiveButton(R.string.upgrade, { dialog, which ->
-                // TODO:Yesが押された時の挙動
-            })
-            .show()
-    }
 }

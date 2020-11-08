@@ -13,16 +13,17 @@ object KeyStore {
 enum class PREF(val key: String) {
     Name("my_settings"),
     FirstDate("first_date"),
+    IconSize("iconSize"),
     TopH("topHeight"),
     TopW("topWidth"),
-    TopActive("topActive"),
+    TopVisible("topVisible"),
     BottomH("bottomHeight"),
     BottomW("bottomWidth"),
-    BottomActive("bottomActive"),
+    BottomVisible("bottomVisible"),
     LeftH("leftHeight"),
     LeftW("leftWidth"),
-    LeftActive("leftActive"),
+    LeftVisible("leftVisible"),
     RightH("rightHeight"),
     RightW("rightWidth"),
-    RightActive("rightActive")
+    RightVisible("rightVisible")
 }

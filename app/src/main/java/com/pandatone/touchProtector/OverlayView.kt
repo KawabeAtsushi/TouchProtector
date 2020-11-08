@@ -3,12 +3,10 @@ package com.pandatone.touchProtector
 import android.content.Context
 import android.graphics.PixelFormat
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 
 
 class OverlayView @JvmOverloads constructor(
@@ -41,7 +39,7 @@ class OverlayView @JvmOverloads constructor(
     /** Starts displaying this view as overlay. */
     @Synchronized
     fun show() {
-        if (!this.isShown) {
+        if (!this.isShown && viewModel.nowVisible) {
             layoutParams.gravity = when (viewModel.nowPos.value!!) {
                 KeyStore.TOP -> Gravity.TOP
                 KeyStore.BOTTOM -> Gravity.BOTTOM

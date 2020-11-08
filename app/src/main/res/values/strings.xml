@@ -18,4 +18,6 @@
     <string name="limit_text">Please upgrade from the button below to continue using it.</string>
     <string name="upgrade">upgrade</string>
     <string name="update_description">* Update the status by turning it on again</string>
+    <string name="home">Home</string>
+    <string name="setting">Setting</string>
 </resources>

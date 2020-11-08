@@ -1,32 +1,54 @@
-package com.pandatone.touchProtector
+package com.pandatone.touchProtector.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.pandatone.touchProtector.KeyStore
 
 class MainViewModel : ViewModel() {
 
     val nowHeight: Int
         get() {
             return when (nowPos.value) {
-                KeyStore.TOP -> topHeight.value?:0
-                KeyStore.BOTTOM -> bottomHeight.value?:0
-                KeyStore.RIGHT -> rightHeight.value?:0
-                else -> leftHeight.value?:0
+                KeyStore.TOP -> topHeight.value ?: 0
+                KeyStore.BOTTOM -> bottomHeight.value ?: 0
+                KeyStore.RIGHT -> rightHeight.value ?: 0
+                else -> leftHeight.value ?: 0
             }
         }
 
     val nowWidth: Int
         get() {
             return when (nowPos.value) {
-                KeyStore.TOP -> topWidth.value?:0
-                KeyStore.BOTTOM -> bottomWidth.value?:0
-                KeyStore.RIGHT -> rightWidth.value?:0
-                else -> leftWidth.value?:0
+                KeyStore.TOP -> topWidth.value ?: 0
+                KeyStore.BOTTOM -> bottomWidth.value ?: 0
+                KeyStore.RIGHT -> rightWidth.value ?: 0
+                else -> leftWidth.value ?: 0
+            }
+        }
+
+    val nowVisible: Boolean
+        get() {
+            return when (nowPos.value) {
+                KeyStore.TOP -> topVisible.value ?: true
+                KeyStore.BOTTOM -> bottomVisible.value ?: true
+                KeyStore.RIGHT -> rightVisible.value ?: true
+                else -> leftVisible.value ?: true
             }
         }
 
     //TOP
+    private val _topVisible = MutableLiveData<Boolean>().also { mutableLiveData ->
+        mutableLiveData.value = true
+    }
+    val topVisible: LiveData<Boolean>
+        get() = _topVisible
+
+    fun setTopVisible(visible: Boolean) {
+        _topVisible.value = visible
+    }
+
     private val _topHeight = MutableLiveData<Int>().also { mutableLiveData ->
         mutableLiveData.value = 200
     }
@@ -39,19 +61,22 @@ class MainViewModel : ViewModel() {
     val topWidth: LiveData<Int>
         get() = _topWidth
 
-    private val _topSize = MutableLiveData<Int>().also { mutableLiveData ->
-        mutableLiveData.value = 0
-    }
-    val topSize: LiveData<Int>
-        get() = _topSize
-
-    fun setTopParam(height: Int = -1, width: Int = -1, size: Int = -1) {
+    fun setTopParam(height: Int = -1, width: Int = -1) {
         if (height > 0) _topHeight.value = height
         if (width > 0) _topWidth.value = width
-        if (size > 0) _topSize.value = size
     }
 
     //BOTTOM
+    private val _bottomVisible = MutableLiveData<Boolean>().also { mutableLiveData ->
+        mutableLiveData.value = true
+    }
+    val bottomVisible: LiveData<Boolean>
+        get() = _bottomVisible
+
+    fun setBottomVisible(visible: Boolean) {
+        _bottomVisible.value = visible
+    }
+
     private val _bottomHeight = MutableLiveData<Int>().also { mutableLiveData ->
         mutableLiveData.value = 200
     }
@@ -70,6 +95,16 @@ class MainViewModel : ViewModel() {
     }
 
     //RIGHT
+    private val _rightVisible = MutableLiveData<Boolean>().also { mutableLiveData ->
+        mutableLiveData.value = true
+    }
+    val rightVisible: LiveData<Boolean>
+        get() = _rightVisible
+
+    fun setRightVisible(visible: Boolean) {
+        _rightVisible.value = visible
+    }
+
     private val _rightHeight = MutableLiveData<Int>().also { mutableLiveData ->
         mutableLiveData.value = 200
     }
@@ -88,6 +123,16 @@ class MainViewModel : ViewModel() {
     }
 
     //LEFT
+    private val _leftVisible = MutableLiveData<Boolean>().also { mutableLiveData ->
+        mutableLiveData.value = true
+    }
+    val leftVisible: LiveData<Boolean>
+        get() = _leftVisible
+
+    fun setLeftVisible(visible: Boolean) {
+        _leftVisible.value = visible
+    }
+
     private val _leftHeight = MutableLiveData<Int>().also { mutableLiveData ->
         mutableLiveData.value = 200
     }
@@ -113,7 +158,7 @@ class MainViewModel : ViewModel() {
         get() = _nowPos
 
     //positionボタンクリック
-    fun changePosition(positionNo: Int) {
+    fun changePosition(positionNo: Int = 0) {
         when (positionNo) {
             0 -> _nowPos.value = KeyStore.TOP
             1 -> _nowPos.value = KeyStore.RIGHT
@@ -122,4 +167,19 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun setPosition(designation: String = "None") {
+        if (designation != "None") {
+            _nowPos.value = designation
+        }
+    }
+
+    private val _iconSize = MutableLiveData<Int>().also { mutableLiveData ->
+        mutableLiveData.value = 0
+    }
+    val iconSize: LiveData<Int>
+        get() = _iconSize
+
+    fun setIconSize(size: Int) {
+        _iconSize.value = size
+    }
 }
