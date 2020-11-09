@@ -20,4 +20,6 @@
     <string name="update_description">* Update the status by turning it on again</string>
     <string name="home">Home</string>
     <string name="setting">Setting</string>
+    <string name="icon">icon</string>
+    <string name="color">color</string>
 </resources>

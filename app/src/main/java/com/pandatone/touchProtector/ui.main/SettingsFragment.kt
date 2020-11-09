@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.pandatone.touchProtector.*
@@ -60,15 +61,7 @@ class SettingsFragment : Fragment() {
         switch.apply {
             setOnCheckedChangeListener { _, isChecked ->
                 if (allowOnClick) {
-                    val heightStr = hEdit.text.toString()
-                    if (heightStr != "") {
-                        setParams(MainActivity.viewModel.nowPos.value!!, height = Integer.parseInt(heightStr))
-                    }
-                    val widthStr = wEdit.text.toString()
-                    if (widthStr != "") {
-                        setParams(MainActivity.viewModel.nowPos.value!!, width = Integer.parseInt(widthStr))
-                    }
-
+                    
                     setVisible(MainActivity.viewModel.nowPos.value!!, isChecked)
 
                     if (OverlayService.isActive) {
@@ -84,7 +77,19 @@ class SettingsFragment : Fragment() {
         title = view.findViewById<TextView>(R.id.title)
         switch = view.findViewById<SwitchCompat>(R.id.active_switch)
         hEdit = view.findViewById<EditText>(R.id.height_edit)
+        hEdit.doAfterTextChanged {
+            val heightStr = it.toString()
+            if (heightStr != "") {
+                setParams(MainActivity.viewModel.nowPos.value!!, height = Integer.parseInt(heightStr))
+            }
+        }
         wEdit = view.findViewById<EditText>(R.id.width_edit)
+        wEdit.doAfterTextChanged {
+            val widthStr = it.toString()
+            if (widthStr != "") {
+                setParams(MainActivity.viewModel.nowPos.value!!, width = Integer.parseInt(widthStr))
+            }
+        }
         wText = view.findViewById<TextView>(R.id.width)
         hText = view.findViewById<TextView>(R.id.height)
         val displaySize = view.findViewById<TextView>(R.id.display_size)

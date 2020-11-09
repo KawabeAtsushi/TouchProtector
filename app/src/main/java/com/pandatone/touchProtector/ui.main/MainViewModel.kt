@@ -167,12 +167,6 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun setPosition(designation: String = "None") {
-        if (designation != "None") {
-            _nowPos.value = designation
-        }
-    }
-
     private val _iconSize = MutableLiveData<Int>().also { mutableLiveData ->
         mutableLiveData.value = 0
     }

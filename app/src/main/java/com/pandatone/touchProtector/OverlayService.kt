@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -104,14 +103,13 @@ class OverlayService() : Service() {
                     isActive = true
                     needChangeViews = false
                     val viewModel = MainActivity.viewModel
-                    val keepPos = viewModel.nowPos.value ?: KeyStore.TOP
                     for ((i, view) in overlayViews.withIndex()) {
                         viewModel.changePosition(i)
                         setViews(view)
                         view.show()
                     }
-                    viewModel.setPosition(keepPos)
                     needChangeViews = true
+                    viewModel.changePosition(0)
                 }
                 ACTION_STOP -> {
                     isActive = false
@@ -172,10 +170,10 @@ class OverlayService() : Service() {
             true
         }
 
-        refresh(icon)
+        setIconSize(icon)
     }
 
-    private fun refresh(icon: ImageView) {
+    private fun setIconSize(icon: ImageView) {
         //アイコンサイズの変更
         val viewModel = MainActivity.viewModel
         val maxSize = min(viewModel.nowHeight, viewModel.nowWidth)

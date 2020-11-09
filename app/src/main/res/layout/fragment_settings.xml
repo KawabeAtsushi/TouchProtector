@@ -166,6 +166,16 @@
                     app:layout_constraintStart_toEndOf="@id/height_index"
                     app:layout_constraintTop_toTopOf="@id/height_index" />
 
+            <ImageView
+                android:id="@+id/width_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_height"
+                android:rotation="90"
+                app:layout_constraintBottom_toBottomOf="@id/width_edit_field"
+                app:layout_constraintEnd_toStartOf="@id/width_edit_field" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/width_edit_field"
                     android:layout_width="wrap_content"
@@ -190,6 +200,15 @@
                         android:maxLines="1"
                         android:textAlignment="center" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/height_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_height"
+                app:layout_constraintBottom_toBottomOf="@id/height_edit_field"
+                app:layout_constraintEnd_toStartOf="@id/height_edit_field" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/height_edit_field"

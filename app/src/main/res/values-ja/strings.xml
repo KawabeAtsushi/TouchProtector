@@ -21,4 +21,6 @@
     <string name="update_description">※再度ONにして状態を更新</string>
     <string name="home">ホーム</string>
     <string name="setting">設定</string>
+    <string name="icon">アイコン</string>
+    <string name="color">色</string>
 </resources>
