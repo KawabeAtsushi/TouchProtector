@@ -1,4 +1,4 @@
-package com.pandatone.touchProtector
+package com.pandatone.touchProtector.ui.overlay
 
 import android.content.Context
 import android.graphics.PixelFormat
@@ -7,6 +7,9 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
+import com.pandatone.touchProtector.KeyStore
+import com.pandatone.touchProtector.MainActivity
+import com.pandatone.touchProtector.R
 
 
 class OverlayView @JvmOverloads constructor(

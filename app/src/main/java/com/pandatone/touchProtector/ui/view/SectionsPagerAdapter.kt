@@ -1,4 +1,4 @@
-package com.pandatone.touchProtector.ui.main
+package com.pandatone.touchProtector.ui.fragment
 
 import android.content.Context
 import androidx.fragment.app.Fragment

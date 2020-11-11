@@ -1,4 +1,4 @@
-package com.pandatone.touchProtector.ui.main
+package com.pandatone.touchProtector.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.pandatone.touchProtector.MainActivity
-import com.pandatone.touchProtector.OverlayService
+import com.pandatone.touchProtector.ui.overlay.OverlayService
 import com.pandatone.touchProtector.PREF
 import com.pandatone.touchProtector.R
+import com.pandatone.touchProtector.databinding.FragmentMainBinding
+import com.pandatone.touchProtector.databinding.FragmentSettingBinding
 import com.pandatone.touchProtector.ui.dialog.IconDialogFragment
+import com.pandatone.touchProtector.ui.viewModel.MainViewModel
+import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
 
 /**
  * A placeholder fragment containing a simple view.
@@ -28,7 +33,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        val binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding.viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

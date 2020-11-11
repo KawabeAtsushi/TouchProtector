@@ -1,4 +1,4 @@
-package com.pandatone.touchProtector
+package com.pandatone.touchProtector.ui.overlay
 
 import android.app.Service
 import android.content.Context
@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
+import com.pandatone.touchProtector.*
 import kotlin.math.min
 
 /**

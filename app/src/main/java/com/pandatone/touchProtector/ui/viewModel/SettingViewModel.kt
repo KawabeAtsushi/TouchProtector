@@ -1,12 +1,11 @@
-package com.pandatone.touchProtector.ui.main
+package com.pandatone.touchProtector.ui.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandatone.touchProtector.KeyStore
 
-class MainViewModel : ViewModel() {
+class SettingViewModel : ViewModel() {
 
     val nowHeight: Int
         get() {
@@ -159,11 +158,11 @@ class MainViewModel : ViewModel() {
 
     //positionボタンクリック
     fun changePosition(positionNo: Int = 0) {
-        when (positionNo) {
-            0 -> _nowPos.value = KeyStore.TOP
-            1 -> _nowPos.value = KeyStore.RIGHT
-            2 -> _nowPos.value = KeyStore.BOTTOM
-            else -> _nowPos.value = KeyStore.LEFT
+        _nowPos.value = when (positionNo) {
+            0 -> KeyStore.TOP
+            1 -> KeyStore.RIGHT
+            2 -> KeyStore.BOTTOM
+            else -> KeyStore.LEFT
         }
     }
 

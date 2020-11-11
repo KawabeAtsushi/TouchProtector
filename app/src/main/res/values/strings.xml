@@ -8,6 +8,7 @@
     <string name="transparent_text">Transparent background</string>
     <string name="status_trial">Trial : Last </string>
     <string name="status_unlimited">Unlimited</string>
+    <string name="status_expired">Expired</string>
     <string name="hours">hours</string>
     <string name="mins">minutes</string>
     <string name="icon_size">icon size</string>

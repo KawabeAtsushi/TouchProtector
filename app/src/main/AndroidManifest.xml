@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.pandatone.touchProtector.OverlayService">
+            android:name="com.pandatone.touchProtector.ui.overlay.OverlayService">
 
         </service>
     </application>

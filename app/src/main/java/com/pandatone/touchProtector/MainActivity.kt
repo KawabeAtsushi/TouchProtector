@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.pandatone.touchProtector.ui.main.MainViewModel
-import com.pandatone.touchProtector.ui.main.SectionsPagerAdapter
+import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
+import com.pandatone.touchProtector.ui.fragment.SectionsPagerAdapter
 
 
 /**
@@ -20,7 +20,7 @@ import com.pandatone.touchProtector.ui.main.SectionsPagerAdapter
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        lateinit var viewModel: MainViewModel
+        lateinit var viewModel: SettingViewModel
 
         var dWidth = 100
         var dHeight = 100
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
         setContentView(R.layout.main_activity)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
@@ -146,6 +146,8 @@ class MainActivity : AppCompatActivity() {
 
     //期限が来たら出す
     private fun limitDialog() {
+
+
         AlertDialog.Builder(this)
             .setCancelable(false)
             .setTitle(R.string.limit_title)

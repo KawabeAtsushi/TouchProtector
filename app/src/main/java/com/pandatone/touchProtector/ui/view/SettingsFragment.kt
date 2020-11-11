@@ -1,4 +1,4 @@
-package com.pandatone.touchProtector.ui.main
+package com.pandatone.touchProtector.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.pandatone.touchProtector.*
-import com.pandatone.touchProtector.databinding.FragmentSettingsBinding
+import com.pandatone.touchProtector.databinding.FragmentSettingBinding
+import com.pandatone.touchProtector.ui.overlay.OverlayService
 
 /**
  * A placeholder fragment containing a simple view.
@@ -38,7 +39,7 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        val binding = FragmentSettingBinding.inflate(inflater, container, false)
         binding.viewModel = MainActivity.viewModel
         // ここでMainActivity.viewModelから流れてきた値を受け取る.
         MainActivity.viewModel.nowPos.observe(viewLifecycleOwner, Observer {
