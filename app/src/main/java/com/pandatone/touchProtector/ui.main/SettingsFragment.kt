@@ -1,15 +1,11 @@
 package com.pandatone.touchProtector.ui.main
 
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.widget.doAfterTextChanged
@@ -30,8 +26,8 @@ class SettingsFragment : Fragment() {
     private lateinit var wText: TextView
     private lateinit var hText: TextView
 
-    companion object{
-        var allowOnClick = true
+    companion object {
+        var allowChangeVisible = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +35,15 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentSettingsBinding.inflate(inflater, container, false)
         binding.viewModel = MainActivity.viewModel
         // ここでMainActivity.viewModelから流れてきた値を受け取る.
         MainActivity.viewModel.nowPos.observe(viewLifecycleOwner, Observer {
             if (OverlayService.needChangeViews) {
-                onClickButton()
+                onChangePosition()
             }
         })
         return binding.root
@@ -60,10 +56,11 @@ class SettingsFragment : Fragment() {
         // Show/Hideの切り替え
         switch.apply {
             setOnCheckedChangeListener { _, isChecked ->
-                if (allowOnClick) {
-                    
+                val viewModel = MainActivity.viewModel
+                hText.text = viewModel.nowHeight.toString()
+                wText.text = viewModel.nowWidth.toString()
+                if (allowChangeVisible) {
                     setVisible(MainActivity.viewModel.nowPos.value!!, isChecked)
-
                     if (OverlayService.isActive) {
                         if (isChecked) OverlayService.show(context)
                         else OverlayService.hide(context)
@@ -80,7 +77,10 @@ class SettingsFragment : Fragment() {
         hEdit.doAfterTextChanged {
             val heightStr = it.toString()
             if (heightStr != "") {
-                setParams(MainActivity.viewModel.nowPos.value!!, height = Integer.parseInt(heightStr))
+                setParams(
+                    MainActivity.viewModel.nowPos.value!!,
+                    height = Integer.parseInt(heightStr)
+                )
             }
         }
         wEdit = view.findViewById<EditText>(R.id.width_edit)
@@ -97,52 +97,23 @@ class SettingsFragment : Fragment() {
             getString(R.string.disp_size) + "${MainActivity.dWidth} × ${MainActivity.dHeight}"
     }
 
-    private fun setValue(position: String, height: String, width: String) {
-        title.text = position
+    private fun setNowPosValue() {
+        val viewModel = MainActivity.viewModel
+        val height = viewModel.nowHeight.toString()
+        val width = viewModel.nowWidth.toString()
+        title.text = viewModel.nowPos.value
         hEdit.setText(height)
         wEdit.setText(width)
         hText.text = height
         wText.text = width
+        switch.isChecked = viewModel.nowVisible
     }
 
-    //positionボタンクリック
-    private fun onClickButton() {
-        allowOnClick = false
-        when (MainActivity.viewModel.nowPos.value!!) {
-            KeyStore.TOP -> {
-                setValue(
-                    KeyStore.TOP,
-                    MainActivity.viewModel.topHeight.value.toString(),
-                    MainActivity.viewModel.topWidth.value.toString()
-                )
-                switch.isChecked = MainActivity.viewModel.topVisible.value ?: false
-            }
-            KeyStore.BOTTOM -> {
-                setValue(
-                    KeyStore.BOTTOM,
-                    MainActivity.viewModel.bottomHeight.value.toString(),
-                    MainActivity.viewModel.bottomWidth.value.toString()
-                )
-                switch.isChecked = MainActivity.viewModel.bottomVisible.value ?: false
-            }
-            KeyStore.RIGHT -> {
-                setValue(
-                    KeyStore.RIGHT,
-                    MainActivity.viewModel.rightHeight.value.toString(),
-                    MainActivity.viewModel.rightWidth.value.toString()
-                )
-                switch.isChecked = MainActivity.viewModel.rightVisible.value ?: false
-            }
-            else -> {
-                setValue(
-                    KeyStore.LEFT,
-                    MainActivity.viewModel.leftHeight.value.toString(),
-                    MainActivity.viewModel.leftWidth.value.toString()
-                )
-                switch.isChecked = MainActivity.viewModel.leftVisible.value ?: false
-            }
-        }
-        allowOnClick = true
+    //positionが変わったときに呼ばれる
+    private fun onChangePosition() {
+        allowChangeVisible = false
+        setNowPosValue()
+        allowChangeVisible = true
     }
 
     //高さ・幅の変更

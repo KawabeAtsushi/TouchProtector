@@ -19,7 +19,6 @@ class OverlayService() : Service() {
         private const val ACTION_HIDE = "HIDE"
         private const val ACTION_START = "START"
         private const val ACTION_STOP = "STOP"
-        var THROUGH = false
         var transBackground = false
         var needChangeViews: Boolean = true
 
@@ -79,33 +78,36 @@ class OverlayService() : Service() {
             startForeground(1, notification)
         }
         topOverlayView = OverlayView.create(this)
-        bottomOverlayView = OverlayView.create(this)
         rightOverlayView = OverlayView.create(this)
+        bottomOverlayView = OverlayView.create(this)
         leftOverlayView = OverlayView.create(this)
 
+        //※追加順重要
         overlayViews = ArrayList()
         overlayViews.add(topOverlayView)
-        overlayViews.add(bottomOverlayView)
         overlayViews.add(rightOverlayView)
+        overlayViews.add(bottomOverlayView)
         overlayViews.add(leftOverlayView)
 
+        val viewModel = MainActivity.viewModel
         for ((i, view) in overlayViews.withIndex()) {
-            MainActivity.viewModel.changePosition(i)
-            setViews(view)
+            viewModel.changePosition(i)
+            setViews(view, viewModel.nowPos.value!!)
         }
     }
 
     /** Handles [ACTION_SHOW] and [ACTION_HIDE] intents. */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
+            val viewModel = MainActivity.viewModel
+
             when (it.action) {
                 ACTION_START -> {
                     isActive = true
                     needChangeViews = false
-                    val viewModel = MainActivity.viewModel
                     for ((i, view) in overlayViews.withIndex()) {
                         viewModel.changePosition(i)
-                        setViews(view)
+                        setViews(view, viewModel.nowPos.value!!)
                         view.show()
                     }
                     needChangeViews = true
@@ -117,7 +119,7 @@ class OverlayService() : Service() {
                     stopSelf()
                 }
                 ACTION_SHOW -> {
-                    setViews(nowView)
+                    setViews(nowView, viewModel.nowPos.value!!)
                     nowView.show()
                 }
                 ACTION_HIDE -> {
@@ -137,7 +139,7 @@ class OverlayService() : Service() {
     /** This service does not support binding. */
     override fun onBind(intent: Intent?) = null
 
-    private fun setViews(overlayView: OverlayView) {
+    private fun setViews(overlayView: OverlayView, position: String) {
 
         val icon = overlayView.findViewById<ImageView>(R.id.cat)
         val iconThrough = overlayView.findViewById<ImageView>(R.id.cat_through)
@@ -149,28 +151,29 @@ class OverlayService() : Service() {
             throughBackground.setBackgroundResource(0)
         }
 
+        thruVisible(false, icon, iconBackground, iconThrough, throughBackground)
+
         icon.setOnLongClickListener {
-            icon.visibility = View.GONE
-            iconBackground.visibility = View.GONE
-            throughBackground.visibility = View.VISIBLE
-            iconThrough.visibility = View.VISIBLE
-            THROUGH = true
-            overlayView.through()
+            thruVisible(true, icon, iconBackground, iconThrough, throughBackground)
+            overlayView.through(true, position)
             Toast.makeText(this, R.string.back_on, Toast.LENGTH_SHORT).show()
             true
         }
         iconThrough.setOnLongClickListener {
-            icon.visibility = View.VISIBLE
-            iconBackground.visibility = View.VISIBLE
-            iconThrough.visibility = View.GONE
-            throughBackground.visibility = View.GONE
-            THROUGH = false
-            overlayView.through()
+            thruVisible(false, icon, iconBackground, iconThrough, throughBackground)
+            overlayView.through(false, position)
             Toast.makeText(this, R.string.back_off, Toast.LENGTH_SHORT).show()
             true
         }
 
         setIconSize(icon)
+    }
+
+    private fun thruVisible(thru: Boolean, normIc: View, normBg: View, thruIc: View, thruBg: View) {
+        normIc.visibility = if (thru) View.GONE else View.VISIBLE
+        normBg.visibility = if (thru) View.GONE else View.VISIBLE
+        thruIc.visibility = if (thru) View.VISIBLE else View.GONE
+        thruBg.visibility = if (thru) View.VISIBLE else View.GONE
     }
 
     private fun setIconSize(icon: ImageView) {

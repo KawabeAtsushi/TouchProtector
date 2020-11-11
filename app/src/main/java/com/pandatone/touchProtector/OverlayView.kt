@@ -60,11 +60,23 @@ class OverlayView @JvmOverloads constructor(
         }
     }
 
-    fun through() {
-        layoutParams.height = viewModel.nowWidth ?: 0
-        if (!OverlayService.THROUGH) {
-            layoutParams.width = viewModel.nowWidth ?: 0
+    fun through(backOperation: Boolean, position: String) {
+
+        if (!backOperation) {
+            layoutParams.height = when (position) {
+                KeyStore.TOP -> viewModel.topHeight.value ?: 0
+                KeyStore.BOTTOM -> viewModel.bottomHeight.value ?: 0
+                KeyStore.RIGHT -> viewModel.rightHeight.value ?: 0
+                else -> viewModel.leftHeight.value ?: 0
+            }
+            layoutParams.width = when (position) {
+                KeyStore.TOP -> viewModel.topWidth.value ?: 0
+                KeyStore.BOTTOM -> viewModel.bottomWidth.value ?: 0
+                KeyStore.RIGHT -> viewModel.rightWidth.value ?: 0
+                else -> viewModel.leftWidth.value ?: 0
+            }
         } else {
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
             layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
         }
         windowManager.removeView(this)

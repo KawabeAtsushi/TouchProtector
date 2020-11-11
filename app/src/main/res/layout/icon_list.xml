@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <TableRow
+        android:id="@+id/icon_tableRow0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/icon_button_none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/card_background"
+        android:backgroundTint="@android:color/white"
+        android:elevation="5dp"
+        android:layout_span="2"
+        android:text="@string/none"
+        android:textColor="@color/gray"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/icon_tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/icon_button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_block" />
+
+        <ImageButton
+            android:id="@+id/icon_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_close" />
+
+        <ImageButton
+            android:id="@+id/icon_button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_lock" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/icon_tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/icon_button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_star" />
+
+        <ImageButton
+            android:id="@+id/icon_button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_favorite" />
+
+        <ImageButton
+            android:id="@+id/icon_button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_security" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/icon_tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/icon_button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_hand" />
+
+        <ImageButton
+            android:id="@+id/icon_button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_cat" />
+
+        <ImageButton
+            android:id="@+id/icon_button9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_background"
+            android:backgroundTint="@android:color/white"
+            android:elevation="5dp"
+            android:src="@drawable/ic_droid" />
+    </TableRow>
+
+</TableLayout>

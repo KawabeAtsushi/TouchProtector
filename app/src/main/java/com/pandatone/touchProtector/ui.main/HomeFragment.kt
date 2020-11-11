@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.ToggleButton
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.pandatone.touchProtector.MainActivity
 import com.pandatone.touchProtector.OverlayService
 import com.pandatone.touchProtector.PREF
 import com.pandatone.touchProtector.R
-import kotlin.math.min
+import com.pandatone.touchProtector.ui.dialog.IconDialogFragment
 
 /**
  * A placeholder fragment containing a simple view.
@@ -25,6 +21,8 @@ class HomeFragment : Fragment() {
     private lateinit var toggle: ToggleButton
     private lateinit var seekBar: SeekBar
     private lateinit var transCheck: CheckBox
+    private lateinit var iconChoiceButton:ImageButton
+    private lateinit var colorChoiceButton:ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +39,7 @@ class HomeFragment : Fragment() {
         toggle.apply {
             isChecked = OverlayService.isActive
             setOnCheckedChangeListener { _, isChecked ->
-                SettingsFragment.allowOnClick = isChecked
+                SettingsFragment.allowChangeVisible = isChecked
                 OverlayService.transBackground = transCheck.isChecked
                 if (isChecked) OverlayService.start(context)
                 else OverlayService.stop(context)
@@ -77,6 +75,16 @@ class HomeFragment : Fragment() {
         seekBar.progress =
             context!!.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE)
                 .getInt(PREF.IconSize.key, 100)
+
+        iconChoiceButton = view.findViewById(R.id.icon_choice_button)
+        iconChoiceButton.setOnClickListener {
+            val dialog = IconDialogFragment()
+            fragmentManager?.run{
+                dialog.show(this,"IconListDialog")
+            }
+        }
+
+        colorChoiceButton = view.findViewById(R.id.color_choice_button)
 
         val statusView = view.findViewById<TextView>(R.id.status)
         var count = 0

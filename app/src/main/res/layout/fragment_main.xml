@@ -12,7 +12,7 @@
         android:id="@+id/icon_choice_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon"
+        android:src="@drawable/ic_cat"
         android:background="@drawable/card_background"
         android:backgroundTint="@android:color/white"
         android:contentDescription="@string/icon"

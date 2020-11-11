@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         var dWidth = 100
         var dHeight = 100
         var statusText = "No Data"
+
         /** ID for the runtime permission dialog */
         private const val OVERLAY_PERMISSION_REQUEST_CODE = 1
     }
@@ -75,7 +76,6 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.status_trial) + (minutes / 60).toString() +
                     getString(R.string.hours) + (minutes % 60).toString() + getString(R.string.mins)
         }
-
     }
 
     private fun getDisplaySize() {
@@ -100,18 +100,6 @@ class MainActivity : AppCompatActivity() {
             if (width > 0) putInt(position + "Width", width)
             apply()
         }
-    }
-
-    //期限が来たら出す
-    private fun limitDialog() {
-        AlertDialog.Builder(this)
-            .setCancelable(false)
-            .setTitle(R.string.limit_title)
-            .setMessage(R.string.limit_text)
-            .setPositiveButton(R.string.upgrade, { dialog, which ->
-                // TODO:Yesが押された時の挙動
-            })
-            .show()
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,4 +140,19 @@ class MainActivity : AppCompatActivity() {
     /** パーミッションチェック */
     private fun isOverlayGranted() = Settings.canDrawOverlays(this)
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////更新時の処理////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //期限が来たら出す
+    private fun limitDialog() {
+        AlertDialog.Builder(this)
+            .setCancelable(false)
+            .setTitle(R.string.limit_title)
+            .setMessage(R.string.limit_text)
+            .setPositiveButton(R.string.upgrade, { dialog, which ->
+                // TODO:Yesが押された時の挙動
+            })
+            .show()
+    }
 }
