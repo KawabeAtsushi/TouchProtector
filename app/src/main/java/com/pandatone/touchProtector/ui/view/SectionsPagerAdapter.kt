@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.pandatone.touchProtector.R
+import com.pandatone.touchProtector.ui.view.HomeFragment
+import com.pandatone.touchProtector.ui.view.SettingFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.home,
@@ -23,7 +25,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         // Return a PlaceholderFragment (defined as a static inner class below).
         return when (position) {
             0 -> HomeFragment()
-            else -> SettingsFragment()
+            else -> SettingFragment()
         }
     }
 

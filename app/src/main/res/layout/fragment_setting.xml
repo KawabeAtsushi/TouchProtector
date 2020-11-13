@@ -138,7 +138,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@{viewModel.topWidth.toString()}"
                     app:layout_constraintBottom_toBottomOf="@id/width_index"
                     app:layout_constraintStart_toEndOf="@id/height_index"
                     app:layout_constraintTop_toTopOf="@id/width_index" />
@@ -161,7 +160,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@{viewModel.topHeight.toString()}"
                     app:layout_constraintBottom_toBottomOf="@id/height_index"
                     app:layout_constraintStart_toEndOf="@id/height_index"
                     app:layout_constraintTop_toTopOf="@id/height_index" />

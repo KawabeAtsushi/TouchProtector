@@ -165,14 +165,4 @@ class SettingViewModel : ViewModel() {
             else -> KeyStore.LEFT
         }
     }
-
-    private val _iconSize = MutableLiveData<Int>().also { mutableLiveData ->
-        mutableLiveData.value = 0
-    }
-    val iconSize: LiveData<Int>
-        get() = _iconSize
-
-    fun setIconSize(size: Int) {
-        _iconSize.value = size
-    }
 }

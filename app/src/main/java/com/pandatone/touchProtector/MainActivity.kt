@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
 import com.pandatone.touchProtector.ui.fragment.SectionsPagerAdapter
+import com.pandatone.touchProtector.ui.view.HomeFragment
+import com.pandatone.touchProtector.ui.view.SettingFragment
+import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
+import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
 
 
 /**
@@ -20,7 +23,6 @@ import com.pandatone.touchProtector.ui.fragment.SectionsPagerAdapter
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        lateinit var viewModel: SettingViewModel
 
         var dWidth = 100
         var dHeight = 100
@@ -33,13 +35,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
+        HomeFragment.viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        SettingFragment.viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
         setContentView(R.layout.main_activity)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
+        HomeFragment.viewModel.setStatus(getString(R.string.status_trial))
         requestOverlayPermission()
 
         getDisplaySize()
@@ -49,21 +53,22 @@ class MainActivity : AppCompatActivity() {
         if (firstDate == 0L) {
             initialBoot()
         } else {
-            viewModel.setTopVisible(pref.getBoolean(PREF.TopVisible.key, true))
-            viewModel.setBottomVisible(pref.getBoolean(PREF.BottomVisible.key, true))
-            viewModel.setRightVisible(pref.getBoolean(PREF.RightVisible.key, true))
-            viewModel.setLeftVisible(pref.getBoolean(PREF.LeftVisible.key, true))
-            viewModel.setTopParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopW.key, 0))
-            viewModel.setBottomParam(
+            val settingViewModel = SettingFragment.viewModel
+            settingViewModel.setTopVisible(pref.getBoolean(PREF.TopVisible.key, true))
+            settingViewModel.setBottomVisible(pref.getBoolean(PREF.BottomVisible.key, true))
+            settingViewModel.setRightVisible(pref.getBoolean(PREF.RightVisible.key, true))
+            settingViewModel.setLeftVisible(pref.getBoolean(PREF.LeftVisible.key, true))
+            settingViewModel.setTopParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopW.key, 0))
+            settingViewModel.setBottomParam(
                 pref.getInt(PREF.BottomH.key, 0),
                 pref.getInt(PREF.BottomW.key, 0)
             )
-            viewModel.setRightParam(
+            settingViewModel.setRightParam(
                 pref.getInt(PREF.RightH.key, 0),
                 pref.getInt(PREF.RightW.key, 0)
             )
-            viewModel.setLeftParam(pref.getInt(PREF.LeftH.key, 0), pref.getInt(PREF.LeftW.key, 0))
-            viewModel.setIconSize(pref.getInt(PREF.IconSize.key, 100))
+            settingViewModel.setLeftParam(pref.getInt(PREF.LeftH.key, 0), pref.getInt(PREF.LeftW.key, 0))
+            HomeFragment.viewModel.setIconSize(pref.getInt(PREF.IconSize.key, 100))
         }
 
         val lastDay = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
@@ -88,11 +93,13 @@ class MainActivity : AppCompatActivity() {
     //高さ・幅の変更
     private fun setParams(position: String, height: Int = -1, width: Int = -1) {
 
+        val settingViewModel = SettingFragment.viewModel
+
         when (position) {
-            KeyStore.TOP -> viewModel.setTopParam(height, width)
-            KeyStore.BOTTOM -> viewModel.setBottomParam(height, width)
-            KeyStore.RIGHT -> viewModel.setRightParam(height, width)
-            else -> viewModel.setLeftParam(height, width)
+            KeyStore.TOP -> settingViewModel.setTopParam(height, width)
+            KeyStore.BOTTOM -> settingViewModel.setBottomParam(height, width)
+            KeyStore.RIGHT -> settingViewModel.setRightParam(height, width)
+            else -> settingViewModel.setLeftParam(height, width)
         }
         //プリファレンス（設定）に保存
         getSharedPreferences(PREF.Name.key, MODE_PRIVATE).edit().apply {
@@ -146,7 +153,7 @@ class MainActivity : AppCompatActivity() {
 
     //期限が来たら出す
     private fun limitDialog() {
-
+        HomeFragment.viewModel.setStatus(getString(R.string.status_expired))
 
         AlertDialog.Builder(this)
             .setCancelable(false)
@@ -154,6 +161,7 @@ class MainActivity : AppCompatActivity() {
             .setMessage(R.string.limit_text)
             .setPositiveButton(R.string.upgrade, { dialog, which ->
                 // TODO:Yesが押された時の挙動
+                HomeFragment.viewModel.setStatus(getString(R.string.status_unlimited))
             })
             .show()
     }

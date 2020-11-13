@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import com.pandatone.touchProtector.KeyStore
 import com.pandatone.touchProtector.MainActivity
 import com.pandatone.touchProtector.R
+import com.pandatone.touchProtector.ui.view.SettingFragment
 
 
 class OverlayView @JvmOverloads constructor(
@@ -23,7 +24,7 @@ class OverlayView @JvmOverloads constructor(
             View.inflate(context, R.layout.overlay_view, null) as OverlayView
     }
 
-    private val viewModel = MainActivity.viewModel
+    private val viewModel = SettingFragment.viewModel
 
     private val windowManager: WindowManager =
         ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager

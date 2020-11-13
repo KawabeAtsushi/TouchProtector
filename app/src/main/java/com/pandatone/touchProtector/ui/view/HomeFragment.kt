@@ -1,22 +1,26 @@
-package com.pandatone.touchProtector.ui.fragment
+package com.pandatone.touchProtector.ui.view
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.pandatone.touchProtector.MainActivity
-import com.pandatone.touchProtector.ui.overlay.OverlayService
 import com.pandatone.touchProtector.PREF
 import com.pandatone.touchProtector.R
-import com.pandatone.touchProtector.databinding.FragmentMainBinding
-import com.pandatone.touchProtector.databinding.FragmentSettingBinding
+import com.pandatone.touchProtector.databinding.FragmentHomeBinding
 import com.pandatone.touchProtector.ui.dialog.IconDialogFragment
-import com.pandatone.touchProtector.ui.viewModel.MainViewModel
-import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
+import com.pandatone.touchProtector.ui.overlay.OverlayService
+import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -26,27 +30,48 @@ class HomeFragment : Fragment() {
     private lateinit var toggle: ToggleButton
     private lateinit var seekBar: SeekBar
     private lateinit var transCheck: CheckBox
-    private lateinit var iconChoiceButton:ImageButton
-    private lateinit var colorChoiceButton:ImageButton
+    private lateinit var iconChoiceButton: ImageButton
+    private lateinit var colorChoiceButton: ImageButton
+
+    companion object {
+        lateinit var viewModel: HomeViewModel
+        var iconDialog: IconDialogFragment? = null
+    }
+
+    object CustomBindingAdapter {
+
+        @BindingAdapter("Android:src")
+        @JvmStatic
+        fun setImageDrawable(view: ImageView, drawable: Drawable?) {
+            view.setImageDrawable(drawable)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding.viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        setViews(binding.root)
+        viewModel.nowIcon.observe(viewLifecycleOwner, Observer {
+            iconChoiceButton.setImageDrawable(it)
+        })
+        viewModel.changeIcon(ContextCompat.getDrawable(context!!, R.drawable.ic_trans_circle)!!)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        setViews(view)
-
         // ON/OFFのトグルボタン切り替え
         toggle.apply {
             isChecked = OverlayService.isActive
             setOnCheckedChangeListener { _, isChecked ->
-                SettingsFragment.allowChangeVisible = isChecked
+                SettingFragment.allowChangeVisible = isChecked
                 OverlayService.transBackground = transCheck.isChecked
                 if (isChecked) OverlayService.start(context)
                 else OverlayService.stop(context)
@@ -85,9 +110,9 @@ class HomeFragment : Fragment() {
 
         iconChoiceButton = view.findViewById(R.id.icon_choice_button)
         iconChoiceButton.setOnClickListener {
-            val dialog = IconDialogFragment()
-            fragmentManager?.run{
-                dialog.show(this,"IconListDialog")
+            iconDialog = IconDialogFragment()
+            fragmentManager?.run {
+                iconDialog?.show(this, "IconListDialog")
             }
         }
 
@@ -104,7 +129,7 @@ class HomeFragment : Fragment() {
 
     //アイコンサイズの変更
     private fun changeIconSize(progress: Int) {
-        MainActivity.viewModel.setIconSize(progress)
+        viewModel.setIconSize(progress)
         context!!.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE).edit().apply {
             putInt(PREF.IconSize.key, progress)
             apply()

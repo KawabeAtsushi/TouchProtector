@@ -9,6 +9,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import com.pandatone.touchProtector.*
+import com.pandatone.touchProtector.ui.view.HomeFragment
+import com.pandatone.touchProtector.ui.view.SettingFragment
 import kotlin.math.min
 
 /**
@@ -64,7 +66,7 @@ class OverlayService() : Service() {
 
     private val nowView: OverlayView
         get() {
-            return when (MainActivity.viewModel.nowPos.value!!) {
+            return when (SettingFragment.viewModel.nowPos.value!!) {
                 KeyStore.TOP -> topOverlayView
                 KeyStore.BOTTOM -> bottomOverlayView
                 KeyStore.RIGHT -> rightOverlayView
@@ -90,7 +92,7 @@ class OverlayService() : Service() {
         overlayViews.add(bottomOverlayView)
         overlayViews.add(leftOverlayView)
 
-        val viewModel = MainActivity.viewModel
+        val viewModel = SettingFragment.viewModel
         for ((i, view) in overlayViews.withIndex()) {
             viewModel.changePosition(i)
             setViews(view, viewModel.nowPos.value!!)
@@ -100,7 +102,7 @@ class OverlayService() : Service() {
     /** Handles [ACTION_SHOW] and [ACTION_HIDE] intents. */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
-            val viewModel = MainActivity.viewModel
+            val viewModel = SettingFragment.viewModel
 
             when (it.action) {
                 ACTION_START -> {
@@ -179,9 +181,9 @@ class OverlayService() : Service() {
 
     private fun setIconSize(icon: ImageView) {
         //アイコンサイズの変更
-        val viewModel = MainActivity.viewModel
+        val viewModel = SettingFragment.viewModel
         val maxSize = min(viewModel.nowHeight, viewModel.nowWidth)
-        val progress = viewModel.iconSize.value ?: 100
+        val progress = HomeFragment.viewModel.iconSize.value ?: 100
         val ratio = progress / 100f //(min)0 ~ 1(max)
         val size = ratio * maxSize
         icon.layoutParams.width = size.toInt()
