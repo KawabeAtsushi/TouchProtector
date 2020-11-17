@@ -8,6 +8,7 @@
     <string name="second_line">ここから表示・非表示を切り替えられます。</string>
     <string name="transparent_text">背景を透過する</string>
     <string name="status_trial">お試し期間 : あと </string>
+    <string name="status_expired">期限切れ</string>
     <string name="status_unlimited">無制限</string>
     <string name="hours">時間</string>
     <string name="mins">分</string>

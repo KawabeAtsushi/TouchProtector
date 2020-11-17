@@ -40,10 +40,10 @@ class HomeFragment : Fragment() {
 
     object CustomBindingAdapter {
 
-        @BindingAdapter("Android:src")
+        @BindingAdapter("src")
         @JvmStatic
-        fun setImageDrawable(view: ImageView, drawable: Drawable?) {
-            view.setImageDrawable(drawable)
+        fun ImageButton.setImageId(id:Int) {
+            setImageResource(id)
         }
     }
 
@@ -56,16 +56,13 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        setViews(binding.root)
-        viewModel.nowIcon.observe(viewLifecycleOwner, Observer {
-            iconChoiceButton.setImageDrawable(it)
-        })
-        viewModel.changeIcon(ContextCompat.getDrawable(context!!, R.drawable.ic_trans_circle)!!)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setViews(view)
 
         // ON/OFFのトグルボタン切り替え
         toggle.apply {

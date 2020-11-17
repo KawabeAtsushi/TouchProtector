@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.databinding.IconListBinding
+import com.pandatone.touchProtector.ui.view.HomeFragment
 import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
 
 class IconDialogFragment : DialogFragment() {
@@ -22,7 +23,7 @@ class IconDialogFragment : DialogFragment() {
             null,
             false
         )
-        binding.viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        binding.viewModel = HomeFragment.viewModel
         val dw = dialog.window
         dw?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(binding.root)

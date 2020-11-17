@@ -44,6 +44,7 @@ class SettingFragment : Fragment() {
     ): View? {
         val binding = FragmentSettingBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         // ここでMainActivity.viewModelから流れてきた値を受け取る.
         viewModel.nowPos.observe(viewLifecycleOwner, Observer {
             if (OverlayService.needChangeViews) {
