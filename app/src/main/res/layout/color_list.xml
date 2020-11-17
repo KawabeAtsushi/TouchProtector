@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.pandatone.touchProtector.R"/>
+        <variable
+            name="viewModel"
+            type="com.pandatone.touchProtector.ui.viewModel.HomeViewModel" />
+    </data>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TableRow
+            android:id="@+id/color_tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/color_button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/yellow"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.yellow)}"
+                android:src="@drawable/ic_trans_circle" />
+
+            <ImageButton
+                android:id="@+id/color_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/green"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.green)}"
+                android:src="@drawable/ic_trans_circle" />
+
+            <ImageButton
+                android:id="@+id/color_button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/sky"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.sky)}"
+                android:src="@drawable/ic_trans_circle" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/color_tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/color_button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/blue"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.blue)}"
+                android:src="@drawable/ic_trans_circle" />
+
+            <ImageButton
+                android:id="@+id/color_button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/purple"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.purple)}"
+                android:src="@drawable/ic_trans_circle" />
+
+            <ImageButton
+                android:id="@+id/color_button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/pink"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.pink)}"
+                android:src="@drawable/ic_trans_circle" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/color_tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/color_button7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/red"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.red)}"
+                android:src="@drawable/ic_trans_circle" />
+
+            <ImageButton
+                android:id="@+id/color_button8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/orange"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.orange)}"
+                android:src="@drawable/ic_trans_circle" />
+
+            <ImageButton
+                android:id="@+id/color_button9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/square_background"
+                android:backgroundTint="@color/white"
+                android:elevation="5dp"
+                android:onClick="@{() -> viewModel.changeColor(R.color.white)}"
+                android:src="@drawable/ic_trans_circle" />
+        </TableRow>
+
+    </TableLayout>
+
+</layout>

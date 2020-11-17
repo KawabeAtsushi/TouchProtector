@@ -10,4 +10,25 @@
 
     <color name="icon_color">#AA8DD3EC</color>
     <color name="back_operation">#39FF074D</color>
+
+    <color name="yellow">#FFFBAD</color>
+    <color name="green">#A8FFAA</color>
+    <color name="sky">#A9FFEE</color>
+    <color name="blue">#BCE2FF</color>
+    <color name="purple">#C8C2FF</color>
+    <color name="pink">#FFBFF9</color>
+    <color name="red">#FFADAD</color>
+    <color name="orange">#FFE3B9</color>
+    <color name="white">#FFFFFF</color>
+
+<!--    <color name="yellow">#39FFF307</color>-->
+<!--    <color name="green">#3907FF0B</color>-->
+<!--    <color name="sky">#3907FFCD</color>-->
+<!--    <color name="blue">#390794FF</color>-->
+<!--    <color name="purple">#392007FF</color>-->
+<!--    <color name="pink">#39FF07E6</color>-->
+<!--    <color name="red">#39FF0707</color>-->
+<!--    <color name="orange">#39FF9C07</color>-->
+<!--    <color name="white">#39FFFFFF</color>-->
+
 </resources>

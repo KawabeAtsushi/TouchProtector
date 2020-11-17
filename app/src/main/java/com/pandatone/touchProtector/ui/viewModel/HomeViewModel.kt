@@ -32,6 +32,19 @@ class HomeViewModel : ViewModel() {
         HomeFragment.iconDialog?.dismiss()
     }
 
+    //now color
+    private val _nowColor = MutableLiveData<Int>().also {
+        it.value = R.color.yellow
+    }
+    val nowColor: LiveData<Int>
+        get() = _nowColor
+
+    //Color変更
+    fun changeColor(colorId: Int) {
+        _nowColor.value = colorId
+        HomeFragment.colorDialog?.dismiss()
+    }
+
     private val _iconSize = MutableLiveData<Int>().also {
         it.value = 0
     }

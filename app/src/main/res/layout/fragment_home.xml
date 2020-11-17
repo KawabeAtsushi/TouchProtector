@@ -10,6 +10,8 @@
             type="com.pandatone.touchProtector.ui.viewModel.HomeViewModel" />
     </data>
 
+<!--    レイアウトを記述-->
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -46,6 +48,7 @@
         android:background="@drawable/square_background"
         android:contentDescription="@string/color"
         android:elevation="5dp"
+        app:color="@{viewModel.nowColor}"
         app:layout_constraintStart_toEndOf="@id/icon_choice_button"
         app:layout_constraintTop_toTopOf="@id/icon_choice_button"
         app:layout_constraintBottom_toBottomOf="@id/icon_choice_button"
