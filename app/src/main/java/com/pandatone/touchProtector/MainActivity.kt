@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.pandatone.touchProtector.ui.fragment.SectionsPagerAdapter
+import com.pandatone.touchProtector.ui.view.SectionsPagerAdapter
 import com.pandatone.touchProtector.ui.view.HomeFragment
 import com.pandatone.touchProtector.ui.view.SettingFragment
 import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
+        viewPager.currentItem = 1
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         HomeFragment.viewModel.setStatus(getString(R.string.status_trial))

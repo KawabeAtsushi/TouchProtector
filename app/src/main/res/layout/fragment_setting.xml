@@ -15,71 +15,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/display_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/disp_size"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <!--    上下左右に肉球マーク　-->
-        <ImageButton
+        <soup.neumorphism.NeumorphImageButton
             android:id="@+id/top_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="TOP"
-            android:elevation="5dp"
+            style="@style/CircleButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:scaleType="centerInside"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_cat"
             android:onClick="@{() -> viewModel.changePosition(0)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <soup.neumorphism.NeumorphImageButton
             android:id="@+id/right_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="RIGHT"
-            android:elevation="5dp"
+            style="@style/CircleButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_cat"
             android:onClick="@{() -> viewModel.changePosition(1)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <soup.neumorphism.NeumorphImageButton
             android:id="@+id/bottom_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="BOTTOM"
-            android:elevation="5dp"
+            style="@style/CircleButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:scaleType="centerInside"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/ic_cat"
             android:onClick="@{() -> viewModel.changePosition(2)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
+        <soup.neumorphism.NeumorphImageButton
             android:id="@+id/left_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/circle_background"
-            android:backgroundTint="@android:color/white"
-            android:contentDescription="LEFT"
-            android:elevation="5dp"
+            style="@style/CircleButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_cat"
             android:onClick="@{() -> viewModel.changePosition(3)}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -88,15 +68,19 @@
 
 
         <!--    カード　-->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/card"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/card_background"
             app:layout_constraintTop_toBottomOf="@id/top_button"
             app:layout_constraintBottom_toTopOf="@id/bottom_button"
             app:layout_constraintEnd_toStartOf="@id/right_button"
-            app:layout_constraintStart_toEndOf="@id/left_button">
+            app:layout_constraintStart_toEndOf="@id/left_button" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
                 <TextView
                     android:id="@+id/title"
@@ -230,7 +214,19 @@
                         android:textAlignment="center" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/display_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/disp_size"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </soup.neumorphism.NeumorphCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

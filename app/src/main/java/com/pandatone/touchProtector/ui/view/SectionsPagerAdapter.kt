@@ -1,14 +1,13 @@
-package com.pandatone.touchProtector.ui.fragment
+package com.pandatone.touchProtector.ui.view
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.pandatone.touchProtector.R
-import com.pandatone.touchProtector.ui.view.HomeFragment
-import com.pandatone.touchProtector.ui.view.SettingFragment
 
 private val TAB_TITLES = arrayOf(
+    R.string.help,
     R.string.home,
     R.string.setting
 )
@@ -24,7 +23,8 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         return when (position) {
-            0 -> HomeFragment()
+            0 -> HelpFragment()
+            1 -> HomeFragment()
             else -> SettingFragment()
         }
     }
@@ -34,7 +34,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     }
 
     override fun getCount(): Int {
-        // Show 2 total pages.
-        return 2
+        // total pages.
+        return 3
     }
 }

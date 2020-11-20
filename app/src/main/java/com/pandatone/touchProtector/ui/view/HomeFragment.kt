@@ -2,6 +2,7 @@ package com.pandatone.touchProtector.ui.view
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import com.pandatone.touchProtector.ui.dialog.ColorDialogFragment
 import com.pandatone.touchProtector.ui.dialog.IconDialogFragment
 import com.pandatone.touchProtector.ui.overlay.OverlayService
 import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
+import soup.neumorphism.NeumorphButton
+import soup.neumorphism.NeumorphImageButton
 
 
 /**
@@ -24,7 +27,7 @@ import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
  */
 class HomeFragment : Fragment() {
 
-    private lateinit var toggle: ToggleButton
+    private lateinit var toggle: NeumorphButton
     private lateinit var seekBar: SeekBar
     private lateinit var transCheck: CheckBox
     private lateinit var iconChoiceButton: ImageButton
@@ -46,8 +49,8 @@ class HomeFragment : Fragment() {
 
         @BindingAdapter("color")
         @JvmStatic
-        fun ImageButton.setColorId(id: Int) {
-            backgroundTintList = ColorStateList.valueOf(resources.getColor(id))
+        fun NeumorphImageButton.setColorId(id: Int) {
+            setBackgroundColor(ColorStateList.valueOf(resources.getColor(id)))
         }
     }
 
@@ -70,16 +73,21 @@ class HomeFragment : Fragment() {
 
         // ON/OFFのトグルボタン切り替え
         toggle.apply {
-            isChecked = OverlayService.isActive
-            setOnCheckedChangeListener { _, isChecked ->
+            setOnClickListener {
+                val isChecked = OverlayService.isActive
                 SettingFragment.allowChangeVisible = isChecked
                 OverlayService.transBackground = transCheck.isChecked
-                if (isChecked) OverlayService.start(context)
-                else OverlayService.stop(context)
+                if (!isChecked) {
+                    OverlayService.start(context)
+                    text = "ON"
+                    setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.toggle_bar_on)
+                } else {
+                    OverlayService.stop(context)
+                    text = "OFF"
+                    setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.toggle_bar_off)
+                }
             }
         }
-
-        val pref = context!!.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE)
 
         seekBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
@@ -102,9 +110,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setViews(view: View) {
-        toggle = view.findViewById<ToggleButton>(R.id.toggle_button)
-        transCheck = view.findViewById<CheckBox>(R.id.transparent_check)
-        seekBar = view.findViewById<SeekBar>(R.id.seekBar)
+        toggle = view.findViewById(R.id.toggle_button)
+        transCheck = view.findViewById(R.id.transparent_check)
+        seekBar = view.findViewById(R.id.seekBar)
         seekBar.progress =
             context!!.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE)
                 .getInt(PREF.IconSize.key, 100)
