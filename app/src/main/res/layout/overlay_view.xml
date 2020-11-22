@@ -7,15 +7,14 @@
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/cat_background"
+            android:id="@+id/overlay_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:background="@color/yellow"
             android:visibility="visible">
 
             <ImageView
-                android:id="@+id/cat"
+                android:id="@+id/overlay_icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

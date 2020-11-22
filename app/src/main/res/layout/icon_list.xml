@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="com.pandatone.touchProtector.R"/>
@@ -12,7 +13,8 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="20dp"
+        tools:context=".MainActivity">
 
         <TableRow
             android:id="@+id/icon_tableRow0"
@@ -28,7 +30,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_trans_circle)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_trans_circle)}"
                 android:text="@string/none"
                 android:textColor="@color/gray" />
         </TableRow>
@@ -46,7 +48,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_block)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_block)}"
                 android:src="@drawable/ic_block" />
 
             <ImageButton
@@ -57,7 +59,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_close)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_close)}"
                 android:src="@drawable/ic_close" />
 
             <ImageButton
@@ -68,7 +70,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_lock)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_lock)}"
                 android:src="@drawable/ic_lock" />
         </TableRow>
 
@@ -85,7 +87,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_star)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_star)}"
                 android:src="@drawable/ic_star" />
 
             <ImageButton
@@ -96,7 +98,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_favorite)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_favorite)}"
                 android:src="@drawable/ic_favorite" />
 
             <ImageButton
@@ -107,7 +109,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_security)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_security)}"
                 android:src="@drawable/ic_security" />
         </TableRow>
 
@@ -124,7 +126,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_hand)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_hand)}"
                 android:src="@drawable/ic_hand" />
 
             <ImageButton
@@ -135,7 +137,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_cat)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_cat)}"
                 android:src="@drawable/ic_cat" />
 
             <ImageButton
@@ -146,7 +148,7 @@
                 android:background="@drawable/square_background"
                 android:backgroundTint="@android:color/white"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeIcon(R.drawable.ic_droid)}"
+                android:onClick="@{() -> viewModel.changeIcon(context,R.drawable.ic_droid)}"
                 android:src="@drawable/ic_droid" />
         </TableRow>
 

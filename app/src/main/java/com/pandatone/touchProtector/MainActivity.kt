@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         viewPager.currentItem = 1
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        HomeFragment.viewModel.setStatus(getString(R.string.status_trial))
         requestOverlayPermission()
 
         getDisplaySize()
@@ -54,6 +53,9 @@ class MainActivity : AppCompatActivity() {
         if (firstDate == 0L) {
             initialBoot()
         } else {
+            val homeViewModel = HomeFragment.viewModel
+            homeViewModel.changeIcon(this,pref.getInt(PREF.IconId.key, R.drawable.ic_block))
+            homeViewModel.changeColor(this,pref.getInt(PREF.ColorId.key, R.color.yellow))
             val settingViewModel = SettingFragment.viewModel
             settingViewModel.setTopVisible(pref.getBoolean(PREF.TopVisible.key, true))
             settingViewModel.setBottomVisible(pref.getBoolean(PREF.BottomVisible.key, true))
@@ -82,6 +84,8 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.status_trial) + (minutes / 60).toString() +
                     getString(R.string.hours) + (minutes % 60).toString() + getString(R.string.mins)
         }
+
+        HomeFragment.viewModel.setStatus(statusText)
     }
 
     private fun getDisplaySize() {
@@ -160,10 +164,10 @@ class MainActivity : AppCompatActivity() {
             .setCancelable(false)
             .setTitle(R.string.limit_title)
             .setMessage(R.string.limit_text)
-            .setPositiveButton(R.string.upgrade, { dialog, which ->
+            .setPositiveButton(R.string.upgrade) { _, _ ->
                 // TODO:Yesが押された時の挙動
                 HomeFragment.viewModel.setStatus(getString(R.string.status_unlimited))
-            })
+            }
             .show()
     }
 }

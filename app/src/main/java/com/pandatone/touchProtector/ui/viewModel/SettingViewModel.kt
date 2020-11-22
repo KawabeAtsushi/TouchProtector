@@ -1,9 +1,12 @@
 package com.pandatone.touchProtector.ui.viewModel
 
+import android.graphics.Color
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pandatone.touchProtector.KeyStore
+import com.pandatone.touchProtector.R
 
 class SettingViewModel : ViewModel() {
 
@@ -164,5 +167,9 @@ class SettingViewModel : ViewModel() {
             2 -> KeyStore.BOTTOM
             else -> KeyStore.LEFT
         }
+    }
+
+    fun visibleColor(visible: Boolean): Int {
+        return if (visible) R.color.icon_color else R.color.not_active
     }
 }

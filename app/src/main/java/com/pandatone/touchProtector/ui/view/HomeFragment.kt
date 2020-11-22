@@ -2,11 +2,13 @@ package com.pandatone.touchProtector.ui.view
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.ImageButton
+import android.widget.SeekBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
@@ -52,10 +54,12 @@ class HomeFragment : Fragment() {
         fun NeumorphImageButton.setColorId(id: Int) {
             setBackgroundColor(ColorStateList.valueOf(resources.getColor(id)))
         }
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        @BindingAdapter("iconColor")
+        @JvmStatic
+        fun NeumorphImageButton.setIconColorId(id: Int) {
+            imageTintList=ColorStateList.valueOf(resources.getColor(id))
+        }
     }
 
     override fun onCreateView(
@@ -80,11 +84,11 @@ class HomeFragment : Fragment() {
                 if (!isChecked) {
                     OverlayService.start(context)
                     text = "ON"
-                    setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.toggle_bar_on)
+                    setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_on)
                 } else {
                     OverlayService.stop(context)
                     text = "OFF"
-                    setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.toggle_bar_off)
+                    setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_off)
                 }
             }
         }
@@ -111,6 +115,16 @@ class HomeFragment : Fragment() {
 
     private fun setViews(view: View) {
         toggle = view.findViewById(R.id.toggle_button)
+        toggle.apply {
+            if (OverlayService.isActive) {
+                text = "ON"
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_on)
+            } else {
+                OverlayService.stop(context)
+                text = "OFF"
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_off)
+            }
+        }
         transCheck = view.findViewById(R.id.transparent_check)
         seekBar = view.findViewById(R.id.seekBar)
         seekBar.progress =

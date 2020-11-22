@@ -1,8 +1,12 @@
 package com.pandatone.touchProtector.ui.viewModel
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.pandatone.touchProtector.MainActivity
+import com.pandatone.touchProtector.PREF
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.ui.view.HomeFragment
 
@@ -21,14 +25,18 @@ class HomeViewModel : ViewModel() {
 
     //now icon
     private val _nowIcon = MutableLiveData<Int>().also {
-        it.value = R.drawable.ic_trans_circle
+        it.value = R.drawable.ic_block
     }
     val nowIcon: LiveData<Int>
         get() = _nowIcon
 
     //Icon変更
-    fun changeIcon(iconId: Int) {
+    fun changeIcon(context: Context,iconId: Int) {
         _nowIcon.value = iconId
+        context.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE).edit().apply {
+            putInt(PREF.IconId.key, iconId)
+            apply()
+        }
         HomeFragment.iconDialog?.dismiss()
     }
 
@@ -40,13 +48,17 @@ class HomeViewModel : ViewModel() {
         get() = _nowColor
 
     //Color変更
-    fun changeColor(colorId: Int) {
+    fun changeColor(context: Context,colorId: Int) {
         _nowColor.value = colorId
+        context.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE).edit().apply {
+            putInt(PREF.ColorId.key, colorId)
+            apply()
+        }
         HomeFragment.colorDialog?.dismiss()
     }
 
     private val _iconSize = MutableLiveData<Int>().also {
-        it.value = 0
+        it.value = 100
     }
     val iconSize: LiveData<Int>
         get() = _iconSize

@@ -32,7 +32,7 @@ object MyNotification {
             .setContentIntent(pendingIntent)  // The intent to send when the entry is clicked
             .setContentTitle(context.getString(R.string.first_line))  // the label of the entry
             .setContentText(context.getString(R.string.second_line))  // the contents of the entry
-            .setSmallIcon(R.drawable.ic_cat)  // the status ic_cat
+            .setSmallIcon(R.mipmap.ic_launcher_round)  // the status ic_cat
             .setTicker(context.getText(R.string.app_name))  // the status text
             .setWhen(System.currentTimeMillis())  // the time stamp
             .build()

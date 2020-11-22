@@ -8,7 +8,10 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
-import com.pandatone.touchProtector.*
+import com.pandatone.touchProtector.KeyStore
+import com.pandatone.touchProtector.MyLog
+import com.pandatone.touchProtector.MyNotification
+import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.ui.view.HomeFragment
 import com.pandatone.touchProtector.ui.view.SettingFragment
 import kotlin.math.min
@@ -144,31 +147,42 @@ class OverlayService() : Service() {
 
     private fun setViews(overlayView: OverlayView, position: String) {
 
-        val icon = overlayView.findViewById<ImageView>(R.id.cat)
+        val icon = overlayView.findViewById<ImageView>(R.id.overlay_icon)
         val iconThrough = overlayView.findViewById<ImageView>(R.id.cat_through)
-        val iconBackground = overlayView.findViewById<FrameLayout>(R.id.cat_background)
+        val background = overlayView.findViewById<FrameLayout>(R.id.overlay_background)
         val throughBackground = overlayView.findViewById<FrameLayout>(R.id.through_background)
 
+        setViewInfo(background, icon, iconThrough)
+
         if (transBackground) {
-            iconBackground.setBackgroundResource(0)
+            background.setBackgroundResource(0)
             throughBackground.setBackgroundResource(0)
         }
 
-        thruVisible(false, icon, iconBackground, iconThrough, throughBackground)
+        thruVisible(false, icon, background, iconThrough, throughBackground)
 
         icon.setOnLongClickListener {
-            thruVisible(true, icon, iconBackground, iconThrough, throughBackground)
+            thruVisible(true, icon, background, iconThrough, throughBackground)
             overlayView.through(true, position)
             Toast.makeText(this, R.string.back_on, Toast.LENGTH_SHORT).show()
             true
         }
         iconThrough.setOnLongClickListener {
-            thruVisible(false, icon, iconBackground, iconThrough, throughBackground)
+            thruVisible(false, icon, background, iconThrough, throughBackground)
             overlayView.through(false, position)
             Toast.makeText(this, R.string.back_off, Toast.LENGTH_SHORT).show()
             true
         }
+    }
 
+    private fun setViewInfo(background: FrameLayout, icon: ImageView, iconTrough: ImageView) {
+        val viewModel = HomeFragment.viewModel
+
+        val backgroundColor = viewModel.nowColor.value ?: 0
+        background.setBackgroundResource(backgroundColor)
+
+        icon.setImageResource(viewModel.nowIcon.value!!)
+        iconTrough.setImageResource(viewModel.nowIcon.value!!)
         setIconSize(icon)
     }
 

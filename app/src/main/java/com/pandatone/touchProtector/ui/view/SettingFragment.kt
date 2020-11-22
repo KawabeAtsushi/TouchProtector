@@ -1,21 +1,27 @@
 package com.pandatone.touchProtector.ui.view
 
+import android.content.res.ColorStateList
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.pandatone.touchProtector.*
 import com.pandatone.touchProtector.databinding.FragmentSettingBinding
 import com.pandatone.touchProtector.ui.overlay.OverlayService
+import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
 import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
+import soup.neumorphism.NeumorphImageButton
 
 /**
  * A placeholder fragment containing a simple view.
@@ -34,16 +40,13 @@ class SettingFragment : Fragment() {
         var allowChangeVisible = true
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentSettingBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.viewModelHome = HomeFragment.viewModel
         binding.lifecycleOwner = this
         // ここでMainActivity.viewModelから流れてきた値を受け取る.
         viewModel.nowPos.observe(viewLifecycleOwner, Observer {
@@ -99,9 +102,8 @@ class SettingFragment : Fragment() {
         hText = view.findViewById<TextView>(R.id.height)
         val displaySize = view.findViewById<TextView>(R.id.display_size)
         displaySize.text =
-            getString(R.string.disp_size) + "${MainActivity.dWidth} × ${MainActivity.dHeight}"
+            "( "+ getString(R.string.disp_size) + "${MainActivity.dWidth} × ${MainActivity.dHeight} )"
     }
-
     private fun setNowPosValue() {
         val height = viewModel.nowHeight.toString()
         val width = viewModel.nowWidth.toString()

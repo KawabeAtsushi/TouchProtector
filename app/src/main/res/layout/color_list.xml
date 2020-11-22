@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="com.pandatone.touchProtector.R"/>
@@ -12,7 +13,8 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="20dp"
+        tools:context=".MainActivity">
 
         <TableRow
             android:id="@+id/color_tableRow1"
@@ -26,8 +28,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/yellow"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.yellow)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.yellow)}"
                 android:src="@drawable/ic_trans_circle" />
 
             <ImageButton
@@ -37,8 +40,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/green"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.green)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.green)}"
                 android:src="@drawable/ic_trans_circle" />
 
             <ImageButton
@@ -48,8 +52,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/sky"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.sky)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.sky)}"
                 android:src="@drawable/ic_trans_circle" />
         </TableRow>
 
@@ -65,8 +70,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/blue"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.blue)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.blue)}"
                 android:src="@drawable/ic_trans_circle" />
 
             <ImageButton
@@ -76,8 +82,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/purple"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.purple)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.purple)}"
                 android:src="@drawable/ic_trans_circle" />
 
             <ImageButton
@@ -87,8 +94,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/pink"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.pink)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.pink)}"
                 android:src="@drawable/ic_trans_circle" />
         </TableRow>
 
@@ -104,8 +112,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/red"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.red)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.red)}"
                 android:src="@drawable/ic_trans_circle" />
 
             <ImageButton
@@ -115,8 +124,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/orange"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.orange)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.orange)}"
                 android:src="@drawable/ic_trans_circle" />
 
             <ImageButton
@@ -126,8 +136,9 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/square_background"
                 android:backgroundTint="@color/white"
+                android:backgroundTintMode="src_atop"
                 android:elevation="5dp"
-                android:onClick="@{() -> viewModel.changeColor(R.color.white)}"
+                android:onClick="@{() -> viewModel.changeColor(context,R.color.white)}"
                 android:src="@drawable/ic_trans_circle" />
         </TableRow>
 
