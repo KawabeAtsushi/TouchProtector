@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pandatone.touchProtector.MainActivity
 import com.pandatone.touchProtector.PREF
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.ui.view.HomeFragment
@@ -31,7 +30,7 @@ class HomeViewModel : ViewModel() {
         get() = _nowIcon
 
     //Icon変更
-    fun changeIcon(context: Context,iconId: Int) {
+    fun changeIcon(context: Context, iconId: Int) {
         _nowIcon.value = iconId
         context.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE).edit().apply {
             putInt(PREF.IconId.key, iconId)
@@ -48,7 +47,7 @@ class HomeViewModel : ViewModel() {
         get() = _nowColor
 
     //Color変更
-    fun changeColor(context: Context,colorId: Int) {
+    fun changeColor(context: Context, colorId: Int) {
         _nowColor.value = colorId
         context.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE).edit().apply {
             putInt(PREF.ColorId.key, colorId)
@@ -65,5 +64,16 @@ class HomeViewModel : ViewModel() {
 
     fun setIconSize(size: Int) {
         _iconSize.value = size
+    }
+
+    //toggleボタンの状態
+    private val _toggleStatus = MutableLiveData<Boolean>().also {
+        it.value = false
+    }
+    val toggleStatus: LiveData<Boolean>
+        get() = _toggleStatus
+
+    fun setToggleStatus(active: Boolean) {
+        _toggleStatus.value = active
     }
 }

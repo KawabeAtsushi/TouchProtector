@@ -58,7 +58,23 @@ class HomeFragment : Fragment() {
         @BindingAdapter("iconColor")
         @JvmStatic
         fun NeumorphImageButton.setIconColorId(id: Int) {
-            imageTintList=ColorStateList.valueOf(resources.getColor(id))
+            imageTintList = ColorStateList.valueOf(resources.getColor(id))
+        }
+
+        @BindingAdapter("toggleText")
+        @JvmStatic
+        fun NeumorphButton.setToggleText(active: Boolean) {
+            text = if (active) "ON" else "OFF"
+        }
+
+        @BindingAdapter("toggleResource")
+        @JvmStatic
+        fun NeumorphButton.setToggleResource(active: Boolean) {
+            if (active) {
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_on)
+            } else {
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_off)
+            }
         }
     }
 
@@ -83,12 +99,8 @@ class HomeFragment : Fragment() {
                 OverlayService.transBackground = transCheck.isChecked
                 if (!isChecked) {
                     OverlayService.start(context)
-                    text = "ON"
-                    setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_on)
                 } else {
                     OverlayService.stop(context)
-                    text = "OFF"
-                    setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_off)
                 }
             }
         }
@@ -115,16 +127,6 @@ class HomeFragment : Fragment() {
 
     private fun setViews(view: View) {
         toggle = view.findViewById(R.id.toggle_button)
-        toggle.apply {
-            if (OverlayService.isActive) {
-                text = "ON"
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_on)
-            } else {
-                OverlayService.stop(context)
-                text = "OFF"
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.toggle_bar_off)
-            }
-        }
         transCheck = view.findViewById(R.id.transparent_check)
         seekBar = view.findViewById(R.id.seekBar)
         seekBar.progress =
@@ -154,6 +156,9 @@ class HomeFragment : Fragment() {
             statusView.text = MainActivity.statusText
             count++
         } while (MainActivity.statusText == "No Data" && count < 30)
+
+        viewModel.setToggleStatus(OverlayService.isActive)
+
     }
 
     //アイコンサイズの変更

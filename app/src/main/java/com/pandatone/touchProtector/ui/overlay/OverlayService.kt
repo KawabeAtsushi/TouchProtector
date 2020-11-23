@@ -133,6 +133,9 @@ class OverlayService() : Service() {
                 }
                 else -> MyLog.e("Need action property to start ${OverlayService::class.java.simpleName}")
             }
+
+            HomeFragment.viewModel.setToggleStatus(isActive)
+
         }
         return super.onStartCommand(intent, flags, startId)
     }

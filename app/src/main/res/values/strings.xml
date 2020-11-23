@@ -2,9 +2,8 @@
     <string name="app_name">TouchProtector</string>
     <string name="width">Width</string>
     <string name="height">Height</string>
-    <string name="channel_name">Switching overlay display</string>
     <string name="first_line">Overlay display</string>
-    <string name="second_line">You can switch between showing and hiding from here.</string>
+    <string name="second_line">Tap here to change settings.</string>
     <string name="transparent_text">Transparent background</string>
     <string name="status_trial">Trial : Last </string>
     <string name="status_unlimited">Unlimited</string>
@@ -25,4 +24,22 @@
     <string name="icon">icon</string>
     <string name="color">color</string>
     <string name="none">None</string>
+    <string name="stop">stop</string>
+
+    <string name="q_how_to_use">Q.アプリの使い方を教えてください。</string>
+    <string name="a_how_to_use">A.このアプリは画面の不用意なタッチを防ぐためのものです。「設定」からタッチ制限範囲を指定します。タッチ制限範囲に表示されるアイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
+    <string name="q_how_to_set">Q.アプリの使い方を教えてください。</string>
+    <string name="a_how_to_set">A.このアプリは画面の不用意なタッチを防ぐためのものです。画面上部の「設定」タブからタッチ制限範囲を指定します。</string>
+    <string name="q_icon">Q.タッチ制限範囲に表示されるアイコンは何ですか？</string>
+    <string name="a_icon">A.アイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
+    <string name="q_change_reflect">Q.変更が反映されません。</string>
+    <string name="a_change_reflect">A.表示を一度OFFに切り替えてから再度ONにすることで現在の設定が反映されます。</string>
+    <string name="q_cannot_manupulate">Q.画面全体に適用してしまい操作ができなくなってしまいました。</string>
+    <string name="a_cannot_manupulate">A.通知バーの項目から設定に進み、「他のアプリに重ねて表示を許可する」を一時的に解除します。また、端末の再起動によっても非表示状態に戻すことができます。</string>
+    <string name="q_apply_to_edge">Q.画面の端まで適用されません。</string>
+    <string name="a_apply_to_edge">A.Androidではセキュリティ上、システムの上にアプリの機能を重ねられない仕様になっています。本アプリはそれぞれの画面における表示できる限界の位置に表示しています。</string>
+    <string name="q_trial">Q.お試し期間とは何ですか？</string>
+    <string name="a_trial">A.本アプリは初回起動時から72時間は無料でご利用いただけます。72時間以降に起動したタイミングでアプリに無制限版へのアップグレードの案内が表示されます。無制限版では期間の縛りなくご利用いただけます。</string>
+    <string name="q_contact">Q.お問い合わせ</string>
+    <string name="a_contact">A.以下のメールアドレスまでお気軽にお問い合わせください。\nganbalism@gmail.com</string>
 </resources>

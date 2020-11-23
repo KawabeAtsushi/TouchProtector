@@ -27,6 +27,8 @@
             android:name="com.pandatone.touchProtector.ui.overlay.OverlayService">
 
         </service>
+
+        <receiver android:name=".StopServiceBroadcastReceiver" android:exported="true"/>
     </application>
 
 </manifest>

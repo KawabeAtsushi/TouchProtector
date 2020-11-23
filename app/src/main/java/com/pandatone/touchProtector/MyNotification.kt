@@ -19,13 +19,16 @@ object MyNotification {
         // Create a notification channel
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.createNotificationChannel(
-            NotificationChannel(CHANNEL_ID, context.getString(R.string.channel_name), CHANNEL_IMPORTANCE)
+            NotificationChannel(CHANNEL_ID, context.getString(R.string.first_line), CHANNEL_IMPORTANCE)
         )
 
         // The PendingIntent to launch our activity if the user selects this notification
         val pendingIntent = PendingIntent.getActivity(
             context, 0, Intent(context, ACTIVITY), 0
         )
+
+        val stopIntent = Intent(context, StopServiceBroadcastReceiver::class.java)
+        val stopPendingIntent = PendingIntent.getBroadcast(context, 1, stopIntent, 0)
 
         return Notification.Builder(context, CHANNEL_ID)
             .setAutoCancel(false)  // don't dismiss when touched
@@ -35,6 +38,7 @@ object MyNotification {
             .setSmallIcon(R.mipmap.ic_launcher_round)  // the status ic_cat
             .setTicker(context.getText(R.string.app_name))  // the status text
             .setWhen(System.currentTimeMillis())  // the time stamp
+            .addAction(0, context.getString(R.string.stop), stopPendingIntent)
             .build()
     }
 }

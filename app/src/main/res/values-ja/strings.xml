@@ -3,9 +3,8 @@
     <string name="app_name">タッチプロテクター</string>
     <string name="width">幅</string>
     <string name="height">高さ</string>
-    <string name="channel_name">オーバーレイ表示の切り替え</string>
     <string name="first_line">オーバーレイ表示中</string>
-    <string name="second_line">ここから表示・非表示を切り替えられます。</string>
+    <string name="second_line">ここをタップして設定を変更。</string>
     <string name="transparent_text">背景を透過する</string>
     <string name="status_trial">お試し期間 : あと </string>
     <string name="status_expired">期限切れ</string>
@@ -26,4 +25,22 @@
     <string name="icon">アイコン</string>
     <string name="color">色</string>
     <string name="none">なし</string>
+    <string name="stop">停止する</string>
+
+    <string name="q_how_to_use">Q.アプリの使い方を教えてください。</string>
+    <string name="a_how_to_use">A.このアプリは画面の不用意なタッチを防ぐためのものです。画面上部の「設定」タブからタッチ制限範囲を指定します。</string>
+    <string name="q_how_to_set">Q.設定の仕方を教えてください。</string>
+    <string name="a_how_to_set">A.「設定」タブの上下左右に表示されているアイコンボタンをタップすることで、その位置のタッチ制限範囲を編集します。それぞれの位置について「幅・高さ」、「表示・非表示」を設定できます。</string>
+    <string name="q_icon">Q.タッチ制限範囲に表示されるアイコンは何ですか？</string>
+    <string name="a_icon">A.アイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
+    <string name="q_change_reflect">Q.設定の変更が反映されません。</string>
+    <string name="a_change_reflect">A.表示を一度OFFに切り替えてから再度ONにすることで現在の設定が反映されます。</string>
+    <string name="q_cannot_manupulate">Q.画面全体に適用してしまい操作ができなくなってしまいました。</string>
+    <string name="a_cannot_manupulate">A.通知バーから「停止する」を押すことでタッチ制限を解除することができます。また、端末の再起動でも非表示状態にできます。</string>
+    <string name="q_apply_to_edge">Q.画面の端まで適用されません。</string>
+    <string name="a_apply_to_edge">A.Androidではセキュリティ上、重要なシステムの上に表示を重ねられません。本アプリはそれぞれの画面において表示できる最端に表示しています。</string>
+    <string name="q_trial">Q.お試し期間とは何ですか？</string>
+    <string name="a_trial">A.本アプリは初回起動時から7日間(168時間)は無料でご利用いただけます。それ以降に起動したタイミングでアプリに無制限版へのアップグレードの案内が表示されます。無制限版では期間の縛りなくご利用いただけます。</string>
+    <string name="q_contact">Q.お問い合わせ</string>
+    <string name="a_contact">A.以下のメールアドレスまでお気軽にお問い合わせください。\n\nganbalism@gmail.com</string>
 </resources>

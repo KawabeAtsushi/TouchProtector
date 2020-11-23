@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val lastDay = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
-        val limit = 72 * 3600 * 1000
+        val limit = 168 * 3600 * 1000
         statusText = if (lastDay > limit) {
             limitDialog()
             getString(R.string.status_unlimited)

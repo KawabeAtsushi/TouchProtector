@@ -13,14 +13,14 @@
     <color name="icon_color">#AA8DD3EC</color>
     <color name="back_operation">#39FF074D</color>
 
-    <color name="yellow">#39FFF300</color>
-    <color name="green">#3900FF06</color>
-    <color name="sky">#3900FFCD</color>
-    <color name="blue">#390091FF</color>
-    <color name="purple">#391900FF</color>
-    <color name="pink">#39FF00E7</color>
-    <color name="red">#39FF0000</color>
-    <color name="orange">#39FF9900</color>
+    <color name="yellow">#30FFF300</color>
+    <color name="green">#2500FF06</color>
+    <color name="sky">#3000FFCD</color>
+    <color name="blue">#300091FF</color>
+    <color name="purple">#201900FF</color>
+    <color name="pink">#20FF00E7</color>
+    <color name="red">#20FF0000</color>
+    <color name="orange">#25FF9900</color>
     <color name="white">#39FFFFFF</color>
 
 </resources>
