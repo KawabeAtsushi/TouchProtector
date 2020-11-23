@@ -52,8 +52,8 @@
                 android:id="@+id/reward_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@color/gray"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#9A9A9A"
                 android:text="@string/watch_ad"
                 android:textColor="@android:color/white" />
 
@@ -61,7 +61,8 @@
                 android:id="@+id/upgrade_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_green_light"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="#FFC929"
                 android:text="@string/upgrade"
                 android:textColor="@android:color/white" />
 

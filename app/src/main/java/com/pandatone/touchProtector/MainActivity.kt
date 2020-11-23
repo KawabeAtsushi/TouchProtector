@@ -12,12 +12,11 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.pandatone.touchProtector.ui.dialog.UpgradeDialog
-import com.pandatone.touchProtector.ui.view.SectionsPagerAdapter
 import com.pandatone.touchProtector.ui.view.HomeFragment
+import com.pandatone.touchProtector.ui.view.SectionsPagerAdapter
 import com.pandatone.touchProtector.ui.view.SettingFragment
 import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
 import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
-import kotlin.concurrent.fixedRateTimer
 
 
 /**
@@ -59,14 +58,17 @@ class MainActivity : AppCompatActivity() {
             initialBoot()
         } else {
             val homeViewModel = HomeFragment.viewModel
-            homeViewModel.changeIcon(this,pref.getInt(PREF.IconId.key, R.drawable.ic_block))
-            homeViewModel.changeColor(this,pref.getInt(PREF.ColorId.key, R.color.yellow))
+            homeViewModel.changeIcon(this, pref.getInt(PREF.IconId.key, R.drawable.ic_block))
+            homeViewModel.changeColor(this, pref.getInt(PREF.ColorId.key, R.color.yellow))
             val settingViewModel = SettingFragment.viewModel
             settingViewModel.setTopVisible(pref.getBoolean(PREF.TopVisible.key, true))
             settingViewModel.setBottomVisible(pref.getBoolean(PREF.BottomVisible.key, true))
             settingViewModel.setRightVisible(pref.getBoolean(PREF.RightVisible.key, true))
             settingViewModel.setLeftVisible(pref.getBoolean(PREF.LeftVisible.key, true))
-            settingViewModel.setTopParam(pref.getInt(PREF.TopH.key, 0), pref.getInt(PREF.TopW.key, 0))
+            settingViewModel.setTopParam(
+                pref.getInt(PREF.TopH.key, 0),
+                pref.getInt(PREF.TopW.key, 0)
+            )
             settingViewModel.setBottomParam(
                 pref.getInt(PREF.BottomH.key, 0),
                 pref.getInt(PREF.BottomW.key, 0)
@@ -75,7 +77,10 @@ class MainActivity : AppCompatActivity() {
                 pref.getInt(PREF.RightH.key, 0),
                 pref.getInt(PREF.RightW.key, 0)
             )
-            settingViewModel.setLeftParam(pref.getInt(PREF.LeftH.key, 0), pref.getInt(PREF.LeftW.key, 0))
+            settingViewModel.setLeftParam(
+                pref.getInt(PREF.LeftH.key, 0),
+                pref.getInt(PREF.LeftW.key, 0)
+            )
             HomeFragment.viewModel.setIconSize(pref.getInt(PREF.IconSize.key, 100))
         }
 
@@ -84,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         statusText = if (lastDay > limit) {
             val dialog = UpgradeDialog()
             val ft = supportFragmentManager.beginTransaction()
-            ft.add(dialog,null)
+            ft.add(dialog, null)
             ft.commitAllowingStateLoss()
             getString(R.string.status_unlimited)
         } else {
@@ -135,6 +140,14 @@ class MainActivity : AppCompatActivity() {
             putLong(PREF.FirstDate.key, System.currentTimeMillis())
             apply()
         }
+        //手引きダイアログ
+        AlertDialog.Builder(this).setTitle(R.string.welcome)
+            .setMessage(R.string.welcome_message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
     }
 
     /** パーミッションリクエスト */

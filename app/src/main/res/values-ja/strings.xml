@@ -31,17 +31,20 @@
     <string name="q_how_to_use">Q.アプリの使い方を教えてください。</string>
     <string name="a_how_to_use">A.このアプリは画面の不用意なタッチを防ぐためのものです。画面上部の「設定」タブからタッチ制限範囲を指定します。</string>
     <string name="q_how_to_set">Q.設定の仕方を教えてください。</string>
-    <string name="a_how_to_set">A.「設定」タブの上下左右に表示されているアイコンボタンをタップして、その位置のタッチ制限範囲を編集します。それぞれの位置で「幅・高さ」、「表示・非表示」を設定できます。</string>
+    <string name="a_how_to_set">A.設定画面の上下左右に表示されているアイコンをタップすると、その位置のタッチ制限範囲を編集できます。それぞれの位置で「幅・高さ」、「表示・非表示」を設定できます。</string>
     <string name="q_icon">Q.タッチ制限範囲に表示されるアイコンは何ですか？</string>
     <string name="a_icon">A.アイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
     <string name="q_change_reflect">Q.設定の変更が反映されません。</string>
     <string name="a_change_reflect">A.表示を一度OFFに切り替えてから再度ONにすることで現在の設定が反映されます。</string>
-    <string name="q_cannot_manupulate">Q.画面全体に適用してしまい操作ができなくなってしまいました。</string>
-    <string name="a_cannot_manupulate">A.通知バーから「停止する」を押すことでタッチ制限を解除することができます。</string>
+    <string name="q_cannot_manipulate">Q.画面全体に適用してしまい操作ができなくなってしまいました。</string>
+    <string name="a_cannot_manipulate">A.通知バーから「停止する」を押すことでタッチ制限を解除することができます。</string>
     <string name="q_apply_to_edge">Q.画面の端まで適用されません。</string>
-    <string name="a_apply_to_edge">A.Androidではセキュリティ上、重要なシステムの上に表示を重ねられません。本アプリはそれぞれの画面において表示できる最端に表示しています。</string>
+    <string name="a_apply_to_edge">A.Androidではセキュリティ上、重要なシステムの上に表示を重ねられないため、画面によっては端で表示されないことがあります。本アプリはそれぞれの画面において表示できる最端に表示します。</string>
     <string name="q_trial">Q.お試し期間とは何ですか？</string>
-    <string name="a_trial">A.本アプリは初回起動時から7日間(168時間)は無料でご利用いただけます。それ以降の起動時に無制限版へのアップグレードの案内が表示されます。無制限版では期間の制限なくご利用いただけます。</string>
+    <string name="a_trial">A.本アプリは初回起動時から7日間(168時間)は無料でご利用いただけます。それ以降の起動時に無制限版へのアップグレード、または無料の延長の案内が表示されます。無制限版では期間の制限なくご利用いただけます。</string>
     <string name="q_contact">Q.お問い合わせ</string>
     <string name="a_contact">A.以下のメールアドレスまでお気軽にお問い合わせください。\n\nganbalism@gmail.com</string>
+
+    <string name="welcome">ようこそ</string>
+    <string name="welcome_message">このアプリでは画面上の設定した領域のタッチを防ぐことができます。\n使い方については画面上部の「ヘルプ」タブからご確認ください。</string>
 </resources>

@@ -7,7 +7,7 @@
 
     <solid android:color="@android:color/white" />
 
-    <stroke android:color="@color/not_active"
+    <stroke android:color="@color/gray"
         android:width="2dp"/>
 
 </shape>

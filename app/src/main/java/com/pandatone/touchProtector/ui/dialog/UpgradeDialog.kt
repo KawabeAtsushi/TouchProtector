@@ -8,13 +8,14 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.DialogFragment
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.gms.ads.reward.RewardedVideoAdListener
-import com.pandatone.touchProtector.KeyStore
+import com.pandatone.touchProtector.PREF
 import com.pandatone.touchProtector.PurchaseUnlimited
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.ui.view.HomeFragment
@@ -46,23 +47,29 @@ class UpgradeDialog : DialogFragment() {
         val upgradeButton = dialog.findViewById<Button>(R.id.upgrade_button)!!
         val watchAdButton = dialog.findViewById<Button>(R.id.reward_button)!!
         // アップグレードボタンのリスナ
-        upgradeButton.setOnClickListener{
+        upgradeButton.setOnClickListener {
             PurchaseUnlimited(activity!!)
-            HomeFragment.viewModel.setStatus(getString(R.string.status_unlimited))}
+            HomeFragment.viewModel.setStatus(getString(R.string.status_unlimited))
+        }
         // 広告視聴ボタンのリスナ
-        watchAdButton.setOnClickListener { adMovie(activity!!) }
+        watchAdButton.setOnClickListener { AdMovie(activity!!,dialog) }
 
         return dialog
     }
 
-    class adMovie(private val activity: Activity): RewardedVideoAdListener {
+    class AdMovie(private val activity: Activity, private val dialog: AppCompatDialog) :
+        RewardedVideoAdListener {
 
         private lateinit var mRewardedVideoAd: RewardedVideoAd
         var adId = "ca-app-pub-2315101868638564/8255088916"
         var testDeviceId = "zte-901zt-320496917125"
         var rewarded = false
 
-        private fun removeAdsTemp() {
+        init {
+            oneDayExtension()
+        }
+
+        private fun oneDayExtension() {
 
             mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(activity)
             mRewardedVideoAd.rewardedVideoAdListener = this
@@ -82,16 +89,27 @@ class UpgradeDialog : DialogFragment() {
         //報酬対象になったとき
         override fun onRewarded(p0: com.google.android.gms.ads.reward.RewardItem?) {
             rewarded = true
-            KeyStore.unlimited = true
         }
 
         //広告が閉じられたとき
         override fun onRewardedVideoAdClosed() {
-
+            activity.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE).edit()
+                .apply {
+                    putLong(PREF.FirstDate.key, System.currentTimeMillis() - 3600 * 1000)
+                    apply()
+                }
+            val status = activity.getString(R.string.status_trial) + "24" +
+                    activity.getString(R.string.hours)
+            HomeFragment.viewModel.setStatus(status)
             if (rewarded) {
-                Toast.makeText(activity, activity.getString(R.string.rewarded_ad), Toast.LENGTH_LONG)
+                Toast.makeText(
+                    activity,
+                    activity.getString(R.string.rewarded_ad),
+                    Toast.LENGTH_LONG
+                )
                     .show()
                 rewarded = false
+                dialog.dismiss()
             }
         }
 

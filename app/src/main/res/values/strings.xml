@@ -14,7 +14,6 @@
     <string name="back_on">Back operation:ON</string>
     <string name="back_off">Back operation:OFF</string>
     <string name="disp_size">DisplaySize : </string>
-    <string name="limit_title">The trial period has expired</string>
     <string name="limit_text">Please upgrade from the button below to continue using it.</string>
     <string name="upgrade">upgrade</string>
     <string name="update_description">* Update the status by turning it on again</string>
@@ -28,20 +27,23 @@
     <string name="watch_ad">watch CM</string>
     <string name="rewarded_ad">The trial period has been extended by 24 hours.</string>
 
-    <string name="q_how_to_use">Q.アプリの使い方を教えてください。</string>
-    <string name="a_how_to_use">A.このアプリは画面の不用意なタッチを防ぐためのものです。「設定」からタッチ制限範囲を指定します。タッチ制限範囲に表示されるアイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
-    <string name="q_how_to_set">Q.アプリの使い方を教えてください。</string>
-    <string name="a_how_to_set">A.このアプリは画面の不用意なタッチを防ぐためのものです。画面上部の「設定」タブからタッチ制限範囲を指定します。</string>
-    <string name="q_icon">Q.タッチ制限範囲に表示されるアイコンは何ですか？</string>
-    <string name="a_icon">A.アイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
-    <string name="q_change_reflect">Q.変更が反映されません。</string>
-    <string name="a_change_reflect">A.表示を一度OFFに切り替えてから再度ONにすることで現在の設定が反映されます。</string>
-    <string name="q_cannot_manupulate">Q.画面全体に適用してしまい操作ができなくなってしまいました。</string>
-    <string name="a_cannot_manupulate">A.通知バーの項目から設定に進み、「他のアプリに重ねて表示を許可する」を一時的に解除します。また、端末の再起動によっても非表示状態に戻すことができます。</string>
-    <string name="q_apply_to_edge">Q.画面の端まで適用されません。</string>
-    <string name="a_apply_to_edge">A.Androidではセキュリティ上、システムの上にアプリの機能を重ねられない仕様になっています。本アプリはそれぞれの画面における表示できる限界の位置に表示しています。</string>
-    <string name="q_trial">Q.お試し期間とは何ですか？</string>
-    <string name="a_trial">A.本アプリは初回起動時から72時間は無料でご利用いただけます。72時間以降に起動したタイミングでアプリに無制限版へのアップグレードの案内が表示されます。無制限版では期間の縛りなくご利用いただけます。</string>
-    <string name="q_contact">Q.お問い合わせ</string>
-    <string name="a_contact">A.以下のメールアドレスまでお気軽にお問い合わせください。\nganbalism@gmail.com</string>
+    <string name="q_how_to_use">Q.How to use the app?</string>
+    <string name="a_how_to_use">A.This app is to prevent accidental touch on the screen. Specify the touch limit range from the "Setting" tab at the top of the screen.</string>
+    <string name="q_how_to_set">Q.How to set?</string>
+    <string name="a_how_to_set">A.By tapping the icons displayed on the top, bottom, left, and right of the setting screen, you can edit the touch limit range about the position. "Width / Height" and "Show / Hide" can be set at each position.</string>
+    <string name="q_icon">Q.What is the icon displayed in the touch limit range?</string>
+    <string name="a_icon">A.Long press the icon to switch the back operation ON / OFF.</string>
+    <string name="q_change_reflect">Q.The setting change is not reflected.</string>
+    <string name="a_change_reflect">A.The current setting is reflected by switching the display to OFF and then turning it ON again.</string>
+    <string name="q_cannot_manipulate">Q.I applied the range to the entire screen and can no longer operate it.</string>
+    <string name="a_cannot_manipulate">A.You can cancel the touch restriction by pressing "Stop" from the notification bar.</string>
+    <string name="q_apply_to_edge">Q.It does not apply to the edge of the screen.</string>
+    <string name="a_apply_to_edge">A.On Android, the display cannot be overlaid on the system that is important for security, so it may not be displayed at the edge depending on the screen. This application is displayed at the end that can be displayed on each screen.</string>
+    <string name="q_trial">Q.What is the trial period?</string>
+    <string name="a_trial">A.This application can be used free of charge for 7 days (168 hours) from the first startup. Subsequent startups will prompt you to upgrade to the unlimited version or extend it for free. The unlimited version can be used for an unlimited period of time.</string>
+    <string name="q_contact">Q.How can I contact you?</string>
+    <string name="a_contact">A.Please feel free to contact us at the email address below.\n\nganbalism@gmail.com</string>
+
+    <string name="welcome">Welcome</string>
+    <string name="welcome_message">With this app, you can prevent touching the set area on the screen.\nPlease check the "Help" tab at the top of the screen for how to use this app.</string>
 </resources>
