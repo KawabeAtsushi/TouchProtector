@@ -5,6 +5,12 @@ object KeyStore {
     const val BOTTOM = "Bottom"
     const val LEFT = "Left"
     const val RIGHT = "Right"
+
+    var unlimited = false
+    var purchaseCheck = true //アップグレード済みかチェック
+
+    //Unlimited sku
+    const val unlimited_sku = "unlimited_touch_protector"
 }
 
 //プリファレンスキー

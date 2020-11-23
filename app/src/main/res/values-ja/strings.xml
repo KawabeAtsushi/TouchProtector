@@ -15,8 +15,7 @@
     <string name="back_on">背面操作:ON</string>
     <string name="back_off">背面操作:OFF</string>
     <string name="disp_size">画面サイズ : </string>
-    <string name="limit_title">お試し期間が終了しました</string>
-    <string name="limit_text">引き続き使用するには以下のボタンからアップグレードしてください。</string>
+    <string name="limit_text">お試し期間が終了しました。\n引き続きご利用いただくには有償の無制限版にアップグレードいただくか、広告を視聴して1日のお試し期間を延長してください。</string>
     <string name="upgrade">アップグレード</string>
     <string name="update_description">※再度ONにして状態を更新</string>
     <string name="home">ホーム</string>
@@ -26,21 +25,23 @@
     <string name="color">色</string>
     <string name="none">なし</string>
     <string name="stop">停止する</string>
+    <string name="watch_ad">広告を視聴</string>
+    <string name="rewarded_ad">お試し期間が24時間延長されました。</string>
 
     <string name="q_how_to_use">Q.アプリの使い方を教えてください。</string>
     <string name="a_how_to_use">A.このアプリは画面の不用意なタッチを防ぐためのものです。画面上部の「設定」タブからタッチ制限範囲を指定します。</string>
     <string name="q_how_to_set">Q.設定の仕方を教えてください。</string>
-    <string name="a_how_to_set">A.「設定」タブの上下左右に表示されているアイコンボタンをタップすることで、その位置のタッチ制限範囲を編集します。それぞれの位置について「幅・高さ」、「表示・非表示」を設定できます。</string>
+    <string name="a_how_to_set">A.「設定」タブの上下左右に表示されているアイコンボタンをタップして、その位置のタッチ制限範囲を編集します。それぞれの位置で「幅・高さ」、「表示・非表示」を設定できます。</string>
     <string name="q_icon">Q.タッチ制限範囲に表示されるアイコンは何ですか？</string>
     <string name="a_icon">A.アイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
     <string name="q_change_reflect">Q.設定の変更が反映されません。</string>
     <string name="a_change_reflect">A.表示を一度OFFに切り替えてから再度ONにすることで現在の設定が反映されます。</string>
     <string name="q_cannot_manupulate">Q.画面全体に適用してしまい操作ができなくなってしまいました。</string>
-    <string name="a_cannot_manupulate">A.通知バーから「停止する」を押すことでタッチ制限を解除することができます。また、端末の再起動でも非表示状態にできます。</string>
+    <string name="a_cannot_manupulate">A.通知バーから「停止する」を押すことでタッチ制限を解除することができます。</string>
     <string name="q_apply_to_edge">Q.画面の端まで適用されません。</string>
     <string name="a_apply_to_edge">A.Androidではセキュリティ上、重要なシステムの上に表示を重ねられません。本アプリはそれぞれの画面において表示できる最端に表示しています。</string>
     <string name="q_trial">Q.お試し期間とは何ですか？</string>
-    <string name="a_trial">A.本アプリは初回起動時から7日間(168時間)は無料でご利用いただけます。それ以降に起動したタイミングでアプリに無制限版へのアップグレードの案内が表示されます。無制限版では期間の縛りなくご利用いただけます。</string>
+    <string name="a_trial">A.本アプリは初回起動時から7日間(168時間)は無料でご利用いただけます。それ以降の起動時に無制限版へのアップグレードの案内が表示されます。無制限版では期間の制限なくご利用いただけます。</string>
     <string name="q_contact">Q.お問い合わせ</string>
     <string name="a_contact">A.以下のメールアドレスまでお気軽にお問い合わせください。\n\nganbalism@gmail.com</string>
 </resources>

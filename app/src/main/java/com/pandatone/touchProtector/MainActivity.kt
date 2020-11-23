@@ -9,12 +9,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
+import com.pandatone.touchProtector.ui.dialog.UpgradeDialog
 import com.pandatone.touchProtector.ui.view.SectionsPagerAdapter
 import com.pandatone.touchProtector.ui.view.HomeFragment
 import com.pandatone.touchProtector.ui.view.SettingFragment
 import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
 import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
+import kotlin.concurrent.fixedRateTimer
 
 
 /**
@@ -46,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
         requestOverlayPermission()
 
+        MobileAds.initialize(this)
+
         getDisplaySize()
 
         val pref = getSharedPreferences(PREF.Name.key, MODE_PRIVATE)
@@ -75,9 +80,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         val lastDay = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
-        val limit = 168 * 3600 * 1000
+        val limit = 1 * 3600 * 1000 //168
         statusText = if (lastDay > limit) {
-            limitDialog()
+            val dialog = UpgradeDialog()
+            val ft = supportFragmentManager.beginTransaction()
+            ft.add(dialog,null)
+            ft.commitAllowingStateLoss()
             getString(R.string.status_unlimited)
         } else {
             val minutes = (limit - lastDay) / 60000
@@ -152,22 +160,9 @@ class MainActivity : AppCompatActivity() {
     /** パーミッションチェック */
     private fun isOverlayGranted() = Settings.canDrawOverlays(this)
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////更新時の処理////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //期限が来たら出す
-    private fun limitDialog() {
-        HomeFragment.viewModel.setStatus(getString(R.string.status_expired))
-
-        AlertDialog.Builder(this)
-            .setCancelable(false)
-            .setTitle(R.string.limit_title)
-            .setMessage(R.string.limit_text)
-            .setPositiveButton(R.string.upgrade) { _, _ ->
-                // TODO:Yesが押された時の挙動
-                HomeFragment.viewModel.setStatus(getString(R.string.status_unlimited))
-            }
-            .show()
+    override fun onDestroy() {
+        super.onDestroy()
+        PurchaseUnlimited.billingClient?.endConnection()
     }
+
 }

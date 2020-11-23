@@ -25,6 +25,8 @@
     <string name="color">color</string>
     <string name="none">None</string>
     <string name="stop">stop</string>
+    <string name="watch_ad">watch CM</string>
+    <string name="rewarded_ad">The trial period has been extended by 24 hours.</string>
 
     <string name="q_how_to_use">Q.アプリの使い方を教えてください。</string>
     <string name="a_how_to_use">A.このアプリは画面の不用意なタッチを防ぐためのものです。「設定」からタッチ制限範囲を指定します。タッチ制限範囲に表示されるアイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
