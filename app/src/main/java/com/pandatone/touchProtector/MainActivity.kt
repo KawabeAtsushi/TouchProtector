@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.pandatone.touchProtector.ui.dialog.UpgradeDialog
 import com.pandatone.touchProtector.ui.view.HomeFragment
@@ -48,8 +47,6 @@ class MainActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
         requestOverlayPermission()
 
-        MobileAds.initialize(this)
-
         getDisplaySize()
 
         val pref = getSharedPreferences(PREF.Name.key, MODE_PRIVATE)
@@ -84,16 +81,16 @@ class MainActivity : AppCompatActivity() {
             HomeFragment.viewModel.setIconSize(pref.getInt(PREF.IconSize.key, 100))
         }
 
-        val lastDay = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
+        val elapsedTime = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
         val limit = 1 * 3600 * 1000 //168
-        statusText = if (lastDay > limit) {
+        statusText = if (elapsedTime > limit) {
             val dialog = UpgradeDialog()
             val ft = supportFragmentManager.beginTransaction()
             ft.add(dialog, null)
             ft.commitAllowingStateLoss()
-            getString(R.string.status_unlimited)
+            getString(R.string.status_expired)
         } else {
-            val minutes = (limit - lastDay) / 60000
+            val minutes = (limit - elapsedTime) / 60000
             getString(R.string.status_trial) + (minutes / 60).toString() +
                     getString(R.string.hours) + (minutes % 60).toString() + getString(R.string.mins)
         }

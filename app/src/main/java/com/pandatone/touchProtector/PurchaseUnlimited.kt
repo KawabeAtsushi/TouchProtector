@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
+import com.pandatone.touchProtector.ui.view.HomeFragment
 
 
 /*
@@ -181,5 +182,6 @@ class PurchaseUnlimited(private val activity: Activity) : PurchasesUpdatedListen
     //無制限版にアップグレード
     private fun unlimited() {
         KeyStore.unlimited = true
+        HomeFragment.viewModel.setStatus(activity.getString(R.string.status_unlimited))
     }
 }

@@ -1,9 +1,10 @@
 package com.pandatone.touchProtector.ui.dialog
 
-import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
@@ -11,14 +12,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.DialogFragment
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.reward.RewardedVideoAd
-import com.google.android.gms.ads.reward.RewardedVideoAdListener
+import com.google.android.gms.ads.RequestConfiguration
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.pandatone.touchProtector.PREF
 import com.pandatone.touchProtector.PurchaseUnlimited
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.ui.view.HomeFragment
+
 
 /**
  * Created by atsushi_2 on 2016/11/11.
@@ -26,9 +33,20 @@ import com.pandatone.touchProtector.ui.view.HomeFragment
 
 class UpgradeDialog : DialogFragment() {
 
+    private lateinit var dimmer: View
+    private lateinit var rewardedAd: RewardedAd
+    private var adId = "ca-app-pub-2315101868638564/8255088916"
+    private var testDevice = "2295CE3E4BC9C5CFD1F0B805F5E8846A"
+    private var rewarded = false
+    private lateinit var loadingAnim: LottieAnimationView
+
     override fun onCreateDialog(savedInstanceState: Bundle?): AppCompatDialog {
 
-        HomeFragment.viewModel.setStatus(getString(R.string.status_expired))
+        MobileAds.initialize(activity)
+        val requestConfiguration = RequestConfiguration.Builder()
+            .setTestDeviceIds(listOf(testDevice))
+            .build()
+        MobileAds.setRequestConfiguration(requestConfiguration)
 
         val dialog = activity?.let { AppCompatDialog(it) }
         // タイトル非表示
@@ -49,75 +67,85 @@ class UpgradeDialog : DialogFragment() {
         // アップグレードボタンのリスナ
         upgradeButton.setOnClickListener {
             PurchaseUnlimited(activity!!)
-            HomeFragment.viewModel.setStatus(getString(R.string.status_unlimited))
         }
         // 広告視聴ボタンのリスナ
-        watchAdButton.setOnClickListener { AdMovie(activity!!,dialog) }
+        watchAdButton.setOnClickListener {
+            loadAd()
+            dimmer = dialog.findViewById(R.id.dimmer_layout)!!
+            dimmer.visibility = View.VISIBLE
+            loadingAnim = dialog.findViewById(R.id.loading_anim)!!
+            loadingAnim.visibility = View.VISIBLE
+            loadingAnim.playAnimation()}
 
         return dialog
     }
 
-    class AdMovie(private val activity: Activity, private val dialog: AppCompatDialog) :
-        RewardedVideoAdListener {
+    private fun loadAd() {
 
-        private lateinit var mRewardedVideoAd: RewardedVideoAd
-        var adId = "ca-app-pub-2315101868638564/8255088916"
-        var testDeviceId = "zte-901zt-320496917125"
-        var rewarded = false
+        rewardedAd = RewardedAd(activity, adId)
 
-        init {
-            oneDayExtension()
-        }
+        val adLoadCallback: RewardedAdLoadCallback = object : RewardedAdLoadCallback() {
 
-        private fun oneDayExtension() {
+            // 広告の準備が完了したとき
+            override fun onRewardedAdLoaded() {
+                showAd()
+                loadingAnim.visibility = View.GONE
+                loadingAnim.cancelAnimation()
+            }
 
-            mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(activity)
-            mRewardedVideoAd.rewardedVideoAdListener = this
-            mRewardedVideoAd.loadAd(
-                adId,
-                AdRequest.Builder().addTestDevice(testDeviceId).build()
-            )
-        }
-
-        ////////////////////リワード広告のオーバーライド////////////////////////////////////////////
-
-        // 広告の準備が完了したとき
-        override fun onRewardedVideoAdLoaded() {
-            mRewardedVideoAd.show()
-        }
-
-        //報酬対象になったとき
-        override fun onRewarded(p0: com.google.android.gms.ads.reward.RewardItem?) {
-            rewarded = true
-        }
-
-        //広告が閉じられたとき
-        override fun onRewardedVideoAdClosed() {
-            activity.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE).edit()
-                .apply {
-                    putLong(PREF.FirstDate.key, System.currentTimeMillis() - 3600 * 1000)
-                    apply()
-                }
-            val status = activity.getString(R.string.status_trial) + "24" +
-                    activity.getString(R.string.hours)
-            HomeFragment.viewModel.setStatus(status)
-            if (rewarded) {
-                Toast.makeText(
-                    activity,
-                    activity.getString(R.string.rewarded_ad),
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-                rewarded = false
-                dialog.dismiss()
+            override fun onRewardedAdFailedToLoad(adError: LoadAdError) {
+                Log.d("AdLog", "The rewarded ad was failed to Load. : $adError")
             }
         }
+        rewardedAd.loadAd(
+            AdRequest.Builder().build(),
+            adLoadCallback
+        )
+    }
 
-        override fun onRewardedVideoAdOpened() {}
-        override fun onRewardedVideoStarted() {}
-        override fun onRewardedVideoAdLeftApplication() {}
-        override fun onRewardedVideoAdFailedToLoad(errorCode: Int) {}
-        override fun onRewardedVideoCompleted() {}
+    fun showAd() {
+
+        val adCallback: RewardedAdCallback = object : RewardedAdCallback() {
+
+            //報酬対象になったとき
+            override fun onUserEarnedReward(p0: RewardItem) {
+                rewarded = true
+            }
+
+            //広告が閉じられたとき
+            override fun onRewardedAdClosed() {
+                super.onRewardedAdClosed()
+                dimmer.visibility = View.GONE
+
+                if (rewarded) {
+                    activity!!.getSharedPreferences(PREF.Name.key, AppCompatActivity.MODE_PRIVATE)
+                        .edit()
+                        .apply {
+                            putLong(
+                                PREF.FirstDate.key,
+                                System.currentTimeMillis() - (168 - 24) * 3600 * 1000
+                            )
+                            apply()
+                        }
+                    val status =
+                        activity?.getString(R.string.status_trial) + "24" + activity?.getString(R.string.hours)
+                    HomeFragment.viewModel.setStatus(status)
+                    Toast.makeText(
+                        activity,
+                        activity?.getString(R.string.rewarded_ad),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                    rewarded = false
+                    dialog?.dismiss()
+                }
+            }
+
+        }
+
+        //広告を表示
+        rewardedAd.show(activity, adCallback)
+
     }
 
 }
