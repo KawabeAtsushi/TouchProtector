@@ -159,7 +159,6 @@ class OverlayService : Service() {
 
         if (transBackground) {
             background.setBackgroundResource(0)
-            throughBackground.setBackgroundResource(0)
         }
 
         thruVisible(false, icon, background, iconThrough, throughBackground)

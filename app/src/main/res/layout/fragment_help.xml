@@ -191,6 +191,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:text="@string/q_entire_protect"
+                android:textStyle="bold" />
+        </soup.neumorphism.NeumorphCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/a_entire_protect" />
+
+        <!--        Question 8-->
+
+        <soup.neumorphism.NeumorphCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="@string/q_contact"
                 android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>

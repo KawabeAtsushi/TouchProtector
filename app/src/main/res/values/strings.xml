@@ -41,6 +41,16 @@
     <string name="a_apply_to_edge">A.On Android, the display cannot be overlaid on the system that is important for security, so it may not be displayed at the edge depending on the screen. This application is displayed at the end that can be displayed on each screen.</string>
     <string name="q_trial">Q.What is the trial period?</string>
     <string name="a_trial">A.This application can be used free of charge for 7 days (168 hours) from the first startup. Subsequent startups will prompt you to upgrade to the unlimited version or extend it for free. The unlimited version can be used for an unlimited period of time.</string>
+    <string name="q_entire_protect">Q.How can I make the entire screen untouchable?</string>
+    <string name="a_entire_protect">A. Please follow the steps below. \n
+         1. Turn off the display on the "Home" screen. \n
+         2. Set the icon to "None", check "Transparent background" and maximize "Icon size". \n
+         3. On the "Setting" screen, turn on only "Top" and adjust the width and height to the values on the long side of the screen (Ex. If the screen size is 1080 x 2160, set width = height = 2160). Turn off the display for other positions. \n
+         4. Turn on the display on the "Home" screen. \n
+         5. Press and hold near the center of the screen. Close the app when the rear operation is turned on. \n
+         6. On the screen where you want to make the entire screen untouchable, press and hold the light red part at the top of the screen. \n
+         7. The entire screen becomes untouchable. To operate again, press and hold near the center of the screen to turn on the rear operation.
+    </string>
     <string name="q_contact">Q.How can I contact you?</string>
     <string name="a_contact">A.Please feel free to contact us at the email address below.\n\nganbalism@gmail.com</string>
 
