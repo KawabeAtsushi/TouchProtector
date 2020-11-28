@@ -1,27 +1,23 @@
 package com.pandatone.touchProtector.ui.view
 
-import android.content.res.ColorStateList
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.widget.doAfterTextChanged
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.pandatone.touchProtector.*
+import com.pandatone.touchProtector.KeyStore
+import com.pandatone.touchProtector.MainActivity
+import com.pandatone.touchProtector.PREF
+import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.databinding.FragmentSettingBinding
 import com.pandatone.touchProtector.ui.overlay.OverlayService
-import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
 import com.pandatone.touchProtector.ui.viewModel.SettingViewModel
-import soup.neumorphism.NeumorphImageButton
 
 /**
  * A placeholder fragment containing a simple view.
@@ -79,9 +75,9 @@ class SettingFragment : Fragment() {
     }
 
     private fun setViews(view: View) {
-        title = view.findViewById<TextView>(R.id.title)
-        switch = view.findViewById<SwitchCompat>(R.id.active_switch)
-        hEdit = view.findViewById<EditText>(R.id.height_edit)
+        title = view.findViewById(R.id.title)
+        switch = view.findViewById(R.id.active_switch)
+        hEdit = view.findViewById(R.id.height_edit)
         hEdit.doAfterTextChanged {
             val heightStr = it.toString()
             if (heightStr != "") {
@@ -91,19 +87,20 @@ class SettingFragment : Fragment() {
                 )
             }
         }
-        wEdit = view.findViewById<EditText>(R.id.width_edit)
+        wEdit = view.findViewById(R.id.width_edit)
         wEdit.doAfterTextChanged {
             val widthStr = it.toString()
             if (widthStr != "") {
                 setParams(viewModel.nowPos.value!!, width = Integer.parseInt(widthStr))
             }
         }
-        wText = view.findViewById<TextView>(R.id.width)
-        hText = view.findViewById<TextView>(R.id.height)
+        wText = view.findViewById(R.id.width)
+        hText = view.findViewById(R.id.height)
         val displaySize = view.findViewById<TextView>(R.id.display_size)
-        displaySize.text =
-            "( "+ getString(R.string.disp_size) + "${MainActivity.dWidth} × ${MainActivity.dHeight} )"
+        val dispSizeText = "( " + getString(R.string.disp_size) + "${MainActivity.dWidth} × ${MainActivity.dHeight} )"
+        displaySize.text = dispSizeText
     }
+
     private fun setNowPosValue() {
         val height = viewModel.nowHeight.toString()
         val width = viewModel.nowWidth.toString()

@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.databinding.ColorListBinding
-import com.pandatone.touchProtector.databinding.IconListBinding
 import com.pandatone.touchProtector.ui.view.HomeFragment
-import com.pandatone.touchProtector.ui.viewModel.HomeViewModel
 
 class ColorDialogFragment : DialogFragment() {
 

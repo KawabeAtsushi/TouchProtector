@@ -30,10 +30,10 @@
             android:onClick="@{() -> viewModel.changePosition(0)}"
             android:scaleType="centerInside"
             app:iconColor="@{viewModel.visibleColor(viewModel.topVisible.booleanValue())}"
-            app:src="@{viewModelHome.nowIcon}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:src="@{viewModelHome.nowIcon}" />
 
         <soup.neumorphism.NeumorphImageButton
             android:id="@+id/right_button"
@@ -42,11 +42,11 @@
             android:layout_height="65dp"
             android:onClick="@{() -> viewModel.changePosition(1)}"
             android:scaleType="centerInside"
-            app:src="@{viewModelHome.nowIcon}"
             app:iconColor="@{viewModel.visibleColor(viewModel.rightVisible.booleanValue())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:src="@{viewModelHome.nowIcon}" />
 
         <soup.neumorphism.NeumorphImageButton
             android:id="@+id/bottom_button"
@@ -56,11 +56,11 @@
             android:layout_marginBottom="10dp"
             android:onClick="@{() -> viewModel.changePosition(2)}"
             android:scaleType="centerInside"
-            app:src="@{viewModelHome.nowIcon}"
             app:iconColor="@{viewModel.visibleColor(viewModel.bottomVisible.booleanValue())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:src="@{viewModelHome.nowIcon}" />
 
         <soup.neumorphism.NeumorphImageButton
             android:id="@+id/left_button"
@@ -69,11 +69,11 @@
             android:layout_height="65dp"
             android:onClick="@{() -> viewModel.changePosition(3)}"
             android:scaleType="centerInside"
-            app:src="@{viewModelHome.nowIcon}"
             app:iconColor="@{viewModel.visibleColor(viewModel.leftVisible.booleanValue())}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:src="@{viewModelHome.nowIcon}" />
 
 
         <!--    カード　-->

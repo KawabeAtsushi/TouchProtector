@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.pandatone.touchProtector.R"/>
+
+        <import type="com.pandatone.touchProtector.R" />
+
         <variable
             name="viewModel"
             type="com.pandatone.touchProtector.ui.viewModel.HomeViewModel" />

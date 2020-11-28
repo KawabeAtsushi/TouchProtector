@@ -19,7 +19,11 @@ object MyNotification {
         // Create a notification channel
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.createNotificationChannel(
-            NotificationChannel(CHANNEL_ID, context.getString(R.string.first_line), CHANNEL_IMPORTANCE)
+            NotificationChannel(
+                CHANNEL_ID,
+                context.getString(R.string.first_line),
+                CHANNEL_IMPORTANCE
+            )
         )
 
         // The PendingIntent to launch our activity if the user selects this notification

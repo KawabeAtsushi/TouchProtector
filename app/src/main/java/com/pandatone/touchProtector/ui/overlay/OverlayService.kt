@@ -19,7 +19,7 @@ import kotlin.math.min
 /**
  * A foreground service for managing the life cycle of overlay view.
  */
-class OverlayService() : Service() {
+class OverlayService : Service() {
     companion object {
         private const val ACTION_SHOW = "SHOW"
         private const val ACTION_HIDE = "HIDE"
@@ -146,7 +146,7 @@ class OverlayService() : Service() {
     }
 
     /** This service does not support binding. */
-    override fun onBind(intent: Intent?) = null
+    override fun onBind(intent: Intent?): Nothing? = null
 
     private fun setViews(overlayView: OverlayView, position: String) {
 

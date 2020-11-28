@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.pandatone.touchProtector.ui.dialog.UpgradeDialog
 import com.pandatone.touchProtector.ui.view.HomeFragment
 import com.pandatone.touchProtector.ui.view.SectionsPagerAdapter
 import com.pandatone.touchProtector.ui.view.SettingFragment
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         viewPager.currentItem = 1
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        requestOverlayPermission()
 
         getDisplaySize()
 
@@ -54,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         if (firstDate == 0L) {
             initialBoot()
         } else {
+            requestOverlayPermission()
             val homeViewModel = HomeFragment.viewModel
             homeViewModel.changeIcon(this, pref.getInt(PREF.IconId.key, R.drawable.ic_block))
             homeViewModel.changeColor(this, pref.getInt(PREF.ColorId.key, R.color.yellow))
@@ -82,12 +81,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         val elapsedTime = System.currentTimeMillis() - pref.getLong(PREF.FirstDate.key, 0)
-        val limit = 1 * 3600 * 1000 //168
+        val limit = 168 * 3600 * 1000 //168
         statusText = if (elapsedTime > limit) {
-            val dialog = UpgradeDialog()
-            val ft = supportFragmentManager.beginTransaction()
-            ft.add(dialog, null)
-            ft.commitAllowingStateLoss()
+            PurchaseUnlimited(this, supportFragmentManager)
             getString(R.string.status_expired)
         } else {
             val minutes = (limit - elapsedTime) / 60000
@@ -141,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this).setTitle(R.string.welcome)
             .setMessage(R.string.welcome_message)
             .setPositiveButton("OK") { dialog, _ ->
+                requestOverlayPermission()
                 dialog.dismiss()
             }
             .create()

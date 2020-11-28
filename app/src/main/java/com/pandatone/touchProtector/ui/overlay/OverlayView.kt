@@ -8,7 +8,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.pandatone.touchProtector.KeyStore
-import com.pandatone.touchProtector.MainActivity
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.ui.view.SettingFragment
 
@@ -50,8 +49,8 @@ class OverlayView @JvmOverloads constructor(
                 KeyStore.RIGHT -> Gravity.END
                 else -> Gravity.START
             }
-            layoutParams.height = viewModel.nowHeight ?: 0
-            layoutParams.width = viewModel.nowWidth ?: 0
+            layoutParams.height = viewModel.nowHeight
+            layoutParams.width = viewModel.nowWidth
             windowManager.addView(this, layoutParams)
         }
     }

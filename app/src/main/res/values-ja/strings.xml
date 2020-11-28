@@ -15,7 +15,7 @@
     <string name="back_on">背面操作:ON</string>
     <string name="back_off">背面操作:OFF</string>
     <string name="disp_size">画面サイズ : </string>
-    <string name="limit_text">お試し期間が終了しました。\n引き続きご利用いただくには有償の無制限版にアップグレードいただくか、広告を視聴して1日のお試し期間を延長してください。</string>
+    <string name="limit_text">お試し期間が終了しました。\n引き続きご利用いただくには有償の無制限版にアップグレードいただくか、広告を視聴して24時間のお試し期間を延長してください。</string>
     <string name="upgrade">アップグレード</string>
     <string name="update_description">※再度ONにして状態を更新</string>
     <string name="home">ホーム</string>
@@ -31,8 +31,8 @@
     <string name="q_how_to_use">Q.アプリの使い方を教えてください。</string>
     <string name="a_how_to_use">A.このアプリは画面の不用意なタッチを防ぐためのものです。画面上部の「設定」タブからタッチ制限範囲を指定します。</string>
     <string name="q_how_to_set">Q.設定の仕方を教えてください。</string>
-    <string name="a_how_to_set">A.設定画面の上下左右に表示されているアイコンをタップすると、その位置のタッチ制限範囲を編集できます。それぞれの位置で「幅・高さ」、「表示・非表示」を設定できます。</string>
-    <string name="q_icon">Q.タッチ制限範囲に表示されるアイコンは何ですか？</string>
+    <string name="a_how_to_set">A.設定画面の上下左右に表示されているアイコンをタップすると、その位置のタッチ制限領域を編集できます。それぞれの位置で「幅・高さ」、「表示・非表示」を設定できます。</string>
+    <string name="q_icon">Q.タッチ制限領域に表示されるアイコンは何ですか？</string>
     <string name="a_icon">A.アイコンを長押しすることで背面操作のON/OFFが切り替えられます。</string>
     <string name="q_change_reflect">Q.設定の変更が反映されません。</string>
     <string name="a_change_reflect">A.表示を一度OFFに切り替えてから再度ONにすることで現在の設定が反映されます。</string>
@@ -46,5 +46,5 @@
     <string name="a_contact">A.以下のメールアドレスまでお気軽にお問い合わせください。\n\nganbalism@gmail.com</string>
 
     <string name="welcome">ようこそ</string>
-    <string name="welcome_message">このアプリでは画面上の設定した領域のタッチを防ぐことができます。\n使い方については画面上部の「ヘルプ」タブからご確認ください。</string>
+    <string name="welcome_message">使い方は画面上部の「ヘルプ」タブからご確認ください。\n次の画面で「他のアプリの上に重ねて表示」を許可してください。</string>
 </resources>

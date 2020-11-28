@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingTop="10dp"
-        android:paddingBottom="20dp"
-        android:orientation="vertical">
+        android:paddingBottom="20dp">
 
-<!--        Question 1-->
+        <!--        Question 1-->
 
         <soup.neumorphism.NeumorphCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_how_to_use"/>
+                android:text="@string/q_how_to_use"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -30,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/a_how_to_use"/>
+            android:text="@string/a_how_to_use" />
 
         <!--        Question 1-2-->
 
@@ -38,13 +40,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_how_to_set"/>
+                android:text="@string/q_how_to_set"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -52,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/a_how_to_set"/>
+            android:text="@string/a_how_to_set" />
 
         <!--        Question 2-->
 
@@ -60,13 +64,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_icon"/>
+                android:text="@string/q_icon"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -74,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/a_icon"/>
+            android:text="@string/a_icon" />
 
         <!--        Question 3-->
 
@@ -82,13 +88,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_change_reflect"/>
+                android:text="@string/q_change_reflect"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -96,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/a_change_reflect"/>
+            android:text="@string/a_change_reflect" />
 
         <!--        Question 4-->
 
@@ -104,13 +112,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_cannot_manipulate"/>
+                android:text="@string/q_cannot_manipulate"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -118,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/a_cannot_manipulate"/>
+            android:text="@string/a_cannot_manipulate" />
 
         <!--        Question 5-->
 
@@ -126,13 +136,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_apply_to_edge"/>
+                android:text="@string/q_apply_to_edge"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -140,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/a_apply_to_edge"/>
+            android:text="@string/a_apply_to_edge" />
 
         <!--        Question 6-->
 
@@ -148,13 +160,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_trial"/>
+                android:text="@string/q_trial"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -162,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/a_trial"/>
+            android:text="@string/a_trial" />
 
         <!--        Question 7-->
 
@@ -170,13 +184,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:neumorph_shapeType="basin"
-            app:neumorph_shadowElevation="3dp">
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="@string/q_contact"/>
+                android:text="@string/q_contact"
+                android:textStyle="bold" />
         </soup.neumorphism.NeumorphCardView>
 
         <TextView
@@ -185,7 +201,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
             android:text="@string/a_contact"
-            android:textIsSelectable="true"/>
+            android:textIsSelectable="true" />
 
     </LinearLayout>
 </ScrollView>

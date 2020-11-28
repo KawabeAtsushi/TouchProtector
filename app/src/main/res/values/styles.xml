@@ -8,28 +8,6 @@
         <item name="colorAccent">#99D1FF</item>
     </style>
 
-    <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
-    </style>
-
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
-    </style>
-
-    <style name="TextLabel" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="colorControlActivated">@color/colorPrimary</item>
-    </style>
-
-    <style name="HomeButton">
-        <item name="neumorph_cornerFamily">rounded</item>
-        <item name="neumorph_cornerSize">20dp</item>
-    </style>
-
     <style name="CircleButton" parent="Widget.Neumorph.ImageButton">
         <item name="neumorph_cornerFamily">oval</item>
         <item name="neumorph_cornerSize">0dp</item>

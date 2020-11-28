@@ -22,17 +22,17 @@ import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.pandatone.touchProtector.PREF
-import com.pandatone.touchProtector.PurchaseUnlimited
 import com.pandatone.touchProtector.R
 import com.pandatone.touchProtector.ui.view.HomeFragment
 
 
 /**
- * Created by atsushi_2 on 2016/11/11.
+ * Created by PandaTone on 2016/11/11.
  */
 
 class UpgradeDialog : DialogFragment() {
 
+    var mPositiveBtnListener: View.OnClickListener? = null
     private lateinit var dimmer: View
     private lateinit var rewardedAd: RewardedAd
     private var adId = "ca-app-pub-2315101868638564/8255088916"
@@ -65,9 +65,7 @@ class UpgradeDialog : DialogFragment() {
         val upgradeButton = dialog.findViewById<Button>(R.id.upgrade_button)!!
         val watchAdButton = dialog.findViewById<Button>(R.id.reward_button)!!
         // アップグレードボタンのリスナ
-        upgradeButton.setOnClickListener {
-            PurchaseUnlimited(activity!!)
-        }
+        upgradeButton.setOnClickListener(mPositiveBtnListener)
         // 広告視聴ボタンのリスナ
         watchAdButton.setOnClickListener {
             loadAd()
@@ -75,7 +73,8 @@ class UpgradeDialog : DialogFragment() {
             dimmer.visibility = View.VISIBLE
             loadingAnim = dialog.findViewById(R.id.loading_anim)!!
             loadingAnim.visibility = View.VISIBLE
-            loadingAnim.playAnimation()}
+            loadingAnim.playAnimation()
+        }
 
         return dialog
     }

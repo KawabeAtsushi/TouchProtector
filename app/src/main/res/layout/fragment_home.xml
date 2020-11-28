@@ -1,134 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.pandatone.touchProtector.ui.viewModel.HomeViewModel" />
     </data>
 
-<!--    レイアウトを記述-->
+    <!--    レイアウトを記述-->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <soup.neumorphism.NeumorphImageButton
-        android:id="@+id/icon_choice_button"
-        style="@style/Widget.Neumorph.ImageButton"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:scaleType="centerInside"
-        app:src="@{viewModel.nowIcon}"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/color_choice_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/toggle_button"/>
+        <soup.neumorphism.NeumorphImageButton
+            android:id="@+id/icon_choice_button"
+            style="@style/Widget.Neumorph.ImageButton"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@id/toggle_button"
+            app:layout_constraintEnd_toStartOf="@id/color_choice_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:src="@{viewModel.nowIcon}" />
 
-    <TextView
-        android:id="@+id/icon_choice_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/icon"
-        app:layout_constraintTop_toBottomOf="@id/icon_choice_button"
-        app:layout_constraintEnd_toEndOf="@id/icon_choice_button"
-        app:layout_constraintStart_toStartOf="@id/icon_choice_button" />
+        <TextView
+            android:id="@+id/icon_choice_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon"
+            app:layout_constraintEnd_toEndOf="@id/icon_choice_button"
+            app:layout_constraintStart_toStartOf="@id/icon_choice_button"
+            app:layout_constraintTop_toBottomOf="@id/icon_choice_button" />
 
-    <soup.neumorphism.NeumorphImageButton
-        android:id="@+id/color_choice_button"
-        style="@style/Widget.Neumorph.ImageButton"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_color_lens"
-        app:color="@{viewModel.nowColor}"
-        app:layout_constraintStart_toEndOf="@id/icon_choice_button"
-        app:layout_constraintTop_toTopOf="@id/icon_choice_button"
-        app:layout_constraintBottom_toBottomOf="@id/icon_choice_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <soup.neumorphism.NeumorphImageButton
+            android:id="@+id/color_choice_button"
+            style="@style/Widget.Neumorph.ImageButton"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_color_lens"
+            app:color="@{viewModel.nowColor}"
+            app:layout_constraintBottom_toBottomOf="@id/icon_choice_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon_choice_button"
+            app:layout_constraintTop_toTopOf="@id/icon_choice_button" />
 
-    <TextView
-        android:id="@+id/color_choice_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/color"
-        app:layout_constraintTop_toBottomOf="@id/color_choice_button"
-        app:layout_constraintEnd_toEndOf="@id/color_choice_button"
-        app:layout_constraintStart_toStartOf="@id/color_choice_button" />
+        <TextView
+            android:id="@+id/color_choice_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color"
+            app:layout_constraintEnd_toEndOf="@id/color_choice_button"
+            app:layout_constraintStart_toStartOf="@id/color_choice_button"
+            app:layout_constraintTop_toBottomOf="@id/color_choice_button" />
 
-    <soup.neumorphism.NeumorphButton
-        android:id="@+id/toggle_button"
-        style="@style/Widget.Neumorph.ImageButton"
-        android:layout_width="220dp"
-        android:layout_height="120dp"
-        android:padding="23dp"
-        android:textSize="50sp"
-        android:gravity="center"
-        app:toggleText="@{viewModel.toggleStatus}"
-        app:toggleResource="@{viewModel.toggleStatus}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/toggle_button"
+            style="@style/Widget.Neumorph.ImageButton"
+            android:layout_width="220dp"
+            android:layout_height="120dp"
+            android:gravity="center"
+            android:padding="23dp"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toggleResource="@{viewModel.toggleStatus}"
+            app:toggleText="@{viewModel.toggleStatus}" />
 
-    <TextView
-        android:id="@+id/toggle_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text="@string/update_description"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toggle_button" />
+        <TextView
+            android:id="@+id/toggle_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="@string/update_description"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toggle_button" />
 
-    <CheckBox
-        android:id="@+id/transparent_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/transparent_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toggle_button" />
+        <CheckBox
+            android:id="@+id/transparent_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/transparent_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toggle_button" />
 
-    <TextView
-        android:id="@+id/size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/icon_size"
-        app:layout_constraintBottom_toTopOf="@id/seekBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_size"
+            app:layout_constraintBottom_toTopOf="@id/seekBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
-        android:max="100"
-        android:min="0"
-        android:progress="100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transparent_check" />
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:max="100"
+            android:min="0"
+            android:progress="100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transparent_check" />
 
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@{viewModel.status.toString()}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@{viewModel.status.toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

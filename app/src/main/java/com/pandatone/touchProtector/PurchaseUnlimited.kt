@@ -1,10 +1,12 @@
 package com.pandatone.touchProtector
 
 import android.app.Activity
-import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import com.android.billingclient.api.*
+import com.pandatone.touchProtector.ui.dialog.UpgradeDialog
 import com.pandatone.touchProtector.ui.view.HomeFragment
 
 
@@ -16,36 +18,63 @@ queryPurchaseHistory()
  */
 
 
-class PurchaseUnlimited(private val activity: Activity) : PurchasesUpdatedListener,
+class PurchaseUnlimited(
+    private val activity: Activity,
+    private val fragmentManager: FragmentManager
+) : PurchasesUpdatedListener,
     AcknowledgePurchaseResponseListener {
 
     companion object {
         var billingClient: BillingClient? = null
     }
+
     private var mySkuDetailsList: List<SkuDetails>? = null
+    private var dialog: UpgradeDialog? = null
 
     init {
         // BillingClientを準備する
         billingClient = BillingClient.newBuilder(activity)
             .setListener(this).enablePendingPurchases().build()
-        if (KeyStore.purchaseCheck) {
-            statusCheck() //アップグレード済かチェック（statusを更新）
-            KeyStore.purchaseCheck = false
-        } else {
-            billingClient!!.startConnection(object : BillingClientStateListener {
-                override fun onBillingSetupFinished(billingResult: BillingResult) {
-                    val responseCode = billingResult.responseCode
-                    if (responseCode == BillingClient.BillingResponseCode.OK) {
-                        querySkuList() //sku初期化から購入処理
-                    } else {
-                        showResponseCode(responseCode)
-                    }
-                }
+        statusCheck() //アップグレード済かチェック（statusを更新）
+    }
 
-                override fun onBillingServiceDisconnected() { // Try to restart the connection on the next request to
+    //無制限版は購入済みか？
+    private fun statusCheck() {
+        billingClient!!.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(billingResult: BillingResult) {
+                val responseCodeB = billingResult.responseCode
+                if (responseCodeB == BillingClient.BillingResponseCode.OK) {
+                    val purchasesResult =
+                        billingClient!!.queryPurchases(BillingClient.SkuType.INAPP)
+                    val responseCodeP = purchasesResult.responseCode
+                    if (responseCodeP == BillingClient.BillingResponseCode.OK) {
+                        val purchases = purchasesResult.purchasesList
+                        //アップグレード済みか判定
+                        for (purchase in purchases!!) {
+                            if (purchase.sku == KeyStore.unlimited_sku) {
+                                unlimited() //アップグレード済みならば
+                            }
+                        }
+                        //アップグレード済みでなければ
+                        if (!KeyStore.unlimited) {
+                            dialog = UpgradeDialog()
+                            dialog?.mPositiveBtnListener =
+                                View.OnClickListener { querySkuList() } //sku初期化から購入処理
+                            val ft = fragmentManager.beginTransaction()
+                            ft.add(dialog!!, null)
+                            ft.commitAllowingStateLoss()
+                        }
+                    } else {
+                        showResponseCode(responseCodeP)
+                    }
+                } else {
+                    showResponseCode(responseCodeB)
                 }
-            })
-        }
+            }
+
+            override fun onBillingServiceDisconnected() { // Try to restart the connection on the next request to
+            }
+        })
     }
 
     // skuの初期化
@@ -85,6 +114,7 @@ class PurchaseUnlimited(private val activity: Activity) : PurchasesUpdatedListen
         if (mySkuDetailsList == null) {
             toastShow("DetailList null")
         } else {
+            Log.d("SD", mySkuDetailsList!!.size.toString())
             for (sd in mySkuDetailsList!!) {
                 if (sd.sku == sku) skuDetails = sd
             }
@@ -105,6 +135,7 @@ class PurchaseUnlimited(private val activity: Activity) : PurchasesUpdatedListen
             for (purchase in purchases) { //購入したら呼ばれる
                 resultStr.append(skuToName(purchase.sku))
                 unlimited()
+                dialog?.dismiss()
             }
             toastShow(resultStr.toString())
         } else { // Handle error codes.
@@ -119,35 +150,6 @@ class PurchaseUnlimited(private val activity: Activity) : PurchasesUpdatedListen
         if (responseCode != BillingClient.BillingResponseCode.OK) {
             showResponseCode(responseCode)
         }
-    }
-
-    //無制限版は購入済みか？
-    private fun statusCheck() {
-        billingClient!!.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                val responseCodeB = billingResult.responseCode
-                if (responseCodeB == BillingClient.BillingResponseCode.OK) {
-                    val purchasesResult =
-                        billingClient!!.queryPurchases(BillingClient.SkuType.INAPP)
-                    val responseCodeP = purchasesResult.responseCode
-                    if (responseCodeP == BillingClient.BillingResponseCode.OK) {
-                        val purchases = purchasesResult.purchasesList
-                        for (purchase in purchases!!) {
-                            if (purchase.sku == KeyStore.unlimited_sku) {
-                                unlimited()
-                            } //アップグレード済みか判定
-                        }
-                    } else {
-                        showResponseCode(responseCodeP)
-                    }
-                } else {
-                    showResponseCode(responseCodeB)
-                }
-            }
-
-            override fun onBillingServiceDisconnected() { // Try to restart the connection on the next request to
-            }
-        })
     }
 
     //skuを商品名に変換

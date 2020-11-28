@@ -14,8 +14,8 @@
     <string name="back_on">Back operation:ON</string>
     <string name="back_off">Back operation:OFF</string>
     <string name="disp_size">DisplaySize : </string>
-    <string name="limit_text">Please upgrade from the button below to continue using it.</string>
-    <string name="upgrade">upgrade</string>
+    <string name="limit_text">The trial period has expired. \nTo continue using it, please upgrade to the paid unlimited version or watch the ad and extend the 24-hour trial period.</string>
+    <string name="upgrade">Upgrade</string>
     <string name="update_description">* Update the status by turning it on again</string>
     <string name="home">Home</string>
     <string name="setting">Setting</string>
@@ -24,14 +24,14 @@
     <string name="color">color</string>
     <string name="none">None</string>
     <string name="stop">stop</string>
-    <string name="watch_ad">watch CM</string>
+    <string name="watch_ad">Watch CM</string>
     <string name="rewarded_ad">The trial period has been extended by 24 hours.</string>
 
     <string name="q_how_to_use">Q.How to use the app?</string>
     <string name="a_how_to_use">A.This app is to prevent accidental touch on the screen. Specify the touch limit range from the "Setting" tab at the top of the screen.</string>
     <string name="q_how_to_set">Q.How to set?</string>
-    <string name="a_how_to_set">A.By tapping the icons displayed on the top, bottom, left, and right of the setting screen, you can edit the touch limit range about the position. "Width / Height" and "Show / Hide" can be set at each position.</string>
-    <string name="q_icon">Q.What is the icon displayed in the touch limit range?</string>
+    <string name="a_how_to_set">A.By tapping the icons displayed on the top, bottom, left, and right of the setting screen, you can edit the touch limit area about the position. "Width / Height" and "Show / Hide" can be set at each position.</string>
+    <string name="q_icon">Q.What is the icon displayed in the touch limit area?</string>
     <string name="a_icon">A.Long press the icon to switch the back operation ON / OFF.</string>
     <string name="q_change_reflect">Q.The setting change is not reflected.</string>
     <string name="a_change_reflect">A.The current setting is reflected by switching the display to OFF and then turning it ON again.</string>
@@ -45,5 +45,5 @@
     <string name="a_contact">A.Please feel free to contact us at the email address below.\n\nganbalism@gmail.com</string>
 
     <string name="welcome">Welcome</string>
-    <string name="welcome_message">With this app, you can prevent touching the set area on the screen.\nPlease check the "Help" tab at the top of the screen for how to use this app.</string>
+    <string name="welcome_message">Please check the usage from the "Help" tab at the top of the screen. \nPlease allow "Overlay on other apps" on the next screen.</string>
 </resources>
